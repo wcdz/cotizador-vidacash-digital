@@ -26,3 +26,11 @@ class GastosDomain:
         )
 
         return gasto_total
+
+    def calcular_gastos_mantenimiento_fijo_poliza_anual(
+        self, vivos_inicio: List[float], gastos_mantenimiento_moneda_poliza: float
+    ):
+        return [
+            gastos_mantenimiento_moneda_poliza * vivo_inicio
+            for vivo_inicio in vivos_inicio
+        ]
