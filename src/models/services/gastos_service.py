@@ -15,6 +15,13 @@ class GastosService:
         prima: float,
         fraccionamiento_primas: float,
         mantenimiento_poliza: float,
+        moneda: str,
+        valor_dolar: float,
+        valor_soles: float,
+        tiene_asistencia: bool,
+        costo_mensual_asistencia_funeraria: float,
+        inflacion_mensual: float,
+        periodo_vigencia: float,
     ):
         self.gastos_domain = GastosDomain()
         self.flujo_resultado_service = FlujoResultadoService()
@@ -25,6 +32,13 @@ class GastosService:
         self.producto = producto
         self.cobertura = cobertura
         self.mantenimiento_poliza = mantenimiento_poliza
+        self.moneda = moneda
+        self.valor_dolar = valor_dolar
+        self.valor_soles = valor_soles
+        self.tiene_asistencia = tiene_asistencia
+        self.costo_mensual_asistencia_funeraria = costo_mensual_asistencia_funeraria
+        self.inflacion_mensual = inflacion_mensual
+        self.periodo_vigencia = periodo_vigencia
 
     def calcular_gastos(self, expuestos_mes: Dict[int, Dict[str, Any]]):
 
@@ -44,12 +58,41 @@ class GastosService:
             )
         )
 
-        gastos_mantenimiento_moneda_poliza = 1
+        gastos_mantenimiento_moneda_poliza = (
+            self.gastos_domain.calcular_gastos_mantenimiento_moneda_poliza(
+                self.moneda,
+                self.valor_dolar,
+                self.valor_soles,
+                self.tiene_asistencia,
+                self.costo_mensual_asistencia_funeraria,
+            )
+        )
 
-        gastos_mantenimiento_fijo_poliza_anual = 1
+        gastos_mantenimiento_fijo_poliza_anual = (
+            self.gastos_domain.calcular_gastos_mantenimiento_fijo_poliza_anual(
+                vivos_inicio, gastos_mantenimiento_moneda_poliza
+            )
+        )
 
-        factor_inflacion = 1
+        factor_inflacion = self.gastos_domain.calcular_factor_inflacion(
+            gastos_mantenimiento_prima_co,
+            gastos_mantenimiento_fijo_poliza_anual,
+            self.inflacion_mensual,
+        )
 
-        gasto_mantenimiento_total = 1
+        gastos_mantenimiento_total = (
+            self.gastos_domain.calcular_gastos_mantenimiento_total(
+                gastos_mantenimiento_prima_co,
+                gastos_mantenimiento_fijo_poliza_anual,
+                factor_inflacion,
+                self.periodo_vigencia,
+            )
+        )
 
-        return 1
+        return {
+            "gastos_mantenimiento_prima_co": gastos_mantenimiento_prima_co,
+            "gastos_mantenimiento_moneda_poliza": gastos_mantenimiento_moneda_poliza,
+            "gastos_mantenimiento_fijo_poliza_anual": gastos_mantenimiento_fijo_poliza_anual,
+            "factor_inflacion": factor_inflacion,
+            "gastos_mantenimiento_total": gastos_mantenimiento_total,
+        }
