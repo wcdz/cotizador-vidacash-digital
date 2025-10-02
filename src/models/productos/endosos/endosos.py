@@ -19,6 +19,7 @@ from src.models.services.parametros_calculados_service import (
 from src.models.productos.endosos.coberturas.fallecimiento import FallecimientoCobertura
 from src.models.productos.endosos.coberturas.itp import ItpCobertura
 from src.common.producto import Producto
+from src.models.services.calculo_actuarial_service import CalculoActuarialService
 
 
 class EndososOrchestrator:
@@ -311,6 +312,7 @@ class EndososOrchestrator:
         # Obtener coberturas del nuevo formato
         coberturas_obj = parametros_entrada.get("coberturas", {})
 
+        # Determinar coberturas activas
         if isinstance(coberturas_obj, dict):
             # Nuevo formato: {"itp": true, "fallecimiento": true}
             coberturas = [k for k, v in coberturas_obj.items() if v]
@@ -321,6 +323,23 @@ class EndososOrchestrator:
                 if isinstance(coberturas_obj, list)
                 else self._cargar_coberturas_disponibles()
             )
+
+        # Ejecutar cálculos actuariales usando instancias independientes de cada cobertura
+        if "fallecimiento" in coberturas:
+            fallecimiento_cobertura = FallecimientoCobertura()
+            resultados_fallecimiento = fallecimiento_cobertura.calculo_actuarial(
+                parametros_entrada, parametros_almacenados, parametros_calculados
+            )
+            # print(f"Resultados actuariales FALLECIMIENTO: {resultados_fallecimiento}")
+
+        """
+        if "itp" in coberturas:
+            itp_cobertura = ItpCobertura()
+            resultados_itp = itp_cobertura.calculo_actuarial(
+                parametros_entrada, parametros_almacenados, parametros_calculados
+            )
+            print(f"Resultados actuariales ITP: {resultados_itp}")
+        """
 
         endosos_data = {
             "coberturas": {},
