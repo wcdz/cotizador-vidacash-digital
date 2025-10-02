@@ -42,7 +42,7 @@ def get_repos(producto: str, cobertura: str = None):
         "tabla_mortalidad": JsonTablaMortalidadRepository(str(ruta), producto),
         "tasa_interes": JsonTasaInteresRepository(str(ruta), producto),
         "tarifas_reaseguro": JsonTarifasReaseguroRepository(str(ruta)) if cobertura else None,
-        "factores_pago": JsonFactoresPagoRepository(str(base_path / "assets" / "cross"), "cross"),
+        "factores_pago": JsonFactoresPagoRepository(str(base_path / "assets" / "productos" / "cross"), "cross"),
         "periodos_cotizacion": JsonPeriodosCotizacionRepository(str(ruta), producto),
         "coberturas": JsonCoberturasRepository(str(base_path / "assets"))
     }

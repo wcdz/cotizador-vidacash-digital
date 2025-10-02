@@ -12,6 +12,13 @@ from src.models.productos.endosos.core.response_building_step import (
     _load_parametros_almacenados_por_cobertura,
 )
 from src.infrastructure.repositories.repos import get_repos
+from src.models.domain.parametros_calculados import ParametrosCalculados
+from src.models.services.parametros_calculados_service import (
+    ParametrosCalculadosService,
+)
+from src.models.productos.endosos.coberturas.fallecimiento import FallecimientoCobertura
+from src.models.productos.endosos.coberturas.itp import ItpCobertura
+from src.common.producto import Producto
 
 
 class EndososOrchestrator:
@@ -23,6 +30,10 @@ class EndososOrchestrator:
     def __init__(self):
         self.producto = "endosos"
         self._coberturas_disponibles = None
+        self._parametros_calculados = ParametrosCalculados()
+        self._parametros_calculados_service = ParametrosCalculadosService()
+        self._cobertura_fallecimiento = FallecimientoCobertura()
+        self._cobertura_itp = ItpCobertura()
 
     def _cargar_coberturas_disponibles(self) -> List[str]:
         """
@@ -68,7 +79,7 @@ class EndososOrchestrator:
             )
 
             # 3. Calcular parámetros específicos
-            parametros_calculados = self._calcular_parametros(
+            parametros_calculados = self._calcular_parametros_calculados(
                 parametros_entrada, parametros_almacenados
             )
 
@@ -89,6 +100,7 @@ class EndososOrchestrator:
 
         except Exception as e:
             print(f"Error en orquestación de endosos: {e}")
+            print(f"Tipo de error: {type(e).__name__}")
             raise
 
     def _preparar_parametros_entrada(
@@ -138,12 +150,12 @@ class EndososOrchestrator:
             if isinstance(coberturas, list):
                 # Cargar coberturas disponibles dinámicamente
                 coberturas_disponibles = self._cargar_coberturas_disponibles()
-                
+
                 # Convertir array a objeto con claves ordenadas según coberturas disponibles
                 coberturas_obj = {}
                 for cobertura in coberturas_disponibles:
                     coberturas_obj[cobertura] = cobertura in coberturas
-                
+
                 parametros_entrada["coberturas"] = coberturas_obj
 
         return parametros_entrada
@@ -176,7 +188,7 @@ class EndososOrchestrator:
 
         return _load_parametros_almacenados_por_cobertura(coberturas)
 
-    def _calcular_parametros(
+    def _calcular_parametros_calculados(
         self, parametros_entrada: Dict[str, Any], parametros_almacenados: Dict[str, Any]
     ) -> Dict[str, Any]:
         """
@@ -189,41 +201,95 @@ class EndososOrchestrator:
         Returns:
             Parámetros calculados
         """
+        # Cargar datos necesarios para los cálculos (solo los específicos de endosos)
+        tasas_interes_data = self._cargar_tasas_interes_por_cobertura(
+            parametros_almacenados
+        )
+
         # Obtener coberturas del nuevo formato
         coberturas_obj = parametros_entrada.get("coberturas", {})
 
-        if isinstance(coberturas_obj, dict):
-            # Nuevo formato: {"itp": true, "fallecimiento": true}
-            coberturas = [k for k, v in coberturas_obj.items() if v]
-        else:
-            # Formato legacy: ["itp", "fallecimiento"]
-            coberturas = (
-                coberturas_obj
-                if isinstance(coberturas_obj, list)
-                else self._cargar_coberturas_disponibles()
-            )
+        # Calcular parámetros calculados por cobertura usando el servicio centralizado
+        parametros_calculados_por_cobertura = {}
 
-        parametros_calculados = {"coberturas": {}}
+        for cobertura, parametros in parametros_almacenados["coberturas"].items():
+            try:
+                if cobertura == "fallecimiento":
+                    self._cobertura_fallecimiento.parametros = parametros
+                    parametros_calculados_por_cobertura[cobertura] = (
+                        self._cobertura_fallecimiento.calcular_parametros_calculados(
+                            parametros_entrada, tasas_interes_data, Producto.ENDOSOS
+                        )
+                    )
 
-        # Ordenar coberturas según el orden específico
-        orden_coberturas = ["fallecimiento", "itp"]
-        coberturas_ordenadas = []
-        for cobertura in orden_coberturas:
-            if cobertura in coberturas:
-                coberturas_ordenadas.append(cobertura)
-        for cobertura in coberturas:
-            if cobertura not in coberturas_ordenadas:
-                coberturas_ordenadas.append(cobertura)
+                elif cobertura == "itp":
+                    self._cobertura_itp.parametros = parametros
+                    parametros_calculados_por_cobertura[cobertura] = (
+                        self._cobertura_itp.calcular_parametros_calculados(
+                            parametros_entrada, tasas_interes_data, Producto.ENDOSOS
+                        )
+                    )
+                print("\n")
+            except Exception as e:
+                print(f"Error en cobertura '{cobertura}': {e}")
+                raise Exception(f"Error en cobertura '{cobertura}': {e}") from e
 
-        for cobertura in coberturas_ordenadas:
-            # Aquí se implementarían los cálculos específicos por cobertura
-            # Por ahora, inicializamos con estructura vacía
-            parametros_calculados["coberturas"][cobertura] = {
-                "calculado_por": "EndososOrchestrator",
-                "timestamp": "2024-01-01T00:00:00Z",  # Placeholder
-            }
+        # Usar los parámetros calculados por cobertura que ya calculamos arriba
+        parametros_calculados = {"coberturas": parametros_calculados_por_cobertura}
 
         return parametros_calculados
+
+    def _cargar_tasas_interes_por_cobertura(
+        self, parametros_almacenados: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """Carga las tasas de interés desde la primera cobertura disponible"""
+        try:
+            # Obtener la primera cobertura disponible
+            coberturas = parametros_almacenados.get("coberturas", {})
+            if not coberturas:
+                print("DEBUG - No hay coberturas disponibles")
+                return {}
+
+            primera_cobertura = list(coberturas.keys())[0]
+            # Cargar tasas de interés desde la cobertura específica
+            repos = get_repos(self.producto, primera_cobertura)
+            tasa_interes_repo = repos.get("tasa_interes")
+            if tasa_interes_repo:
+                tasas_interes_raw = tasa_interes_repo.get_tasas_interes()
+                # Procesar las tasas con el helper para agregar tasa_reserva
+                from src.helpers.tasa_interes_reserva import tasa_interes_reserva
+
+                tasas_procesadas = tasa_interes_reserva(tasas_interes_raw)
+                return tasas_procesadas
+            else:
+                print(
+                    f"DEBUG - No se encontró repositorio de tasas de interés para {primera_cobertura}"
+                )
+                return {}
+        except Exception as e:
+            print(f"Error al cargar tasas de interés por cobertura: {e}")
+            return {}
+
+    def _cargar_tasas_interes(self) -> Dict[str, Any]:
+        """Carga las tasas de interés desde el repositorio y las procesa"""
+        try:
+            repos = get_repos(self.producto)
+            tasa_interes_repo = repos.get("tasa_interes")
+            if tasa_interes_repo:
+                tasas_interes_raw = tasa_interes_repo.get_tasas_interes()
+                print(f"DEBUG - Tasas de interés RAW: {tasas_interes_raw}")
+
+                # Procesar las tasas con el helper para agregar tasa_reserva
+                from src.helpers.tasa_interes_reserva import tasa_interes_reserva
+
+                tasas_procesadas = tasa_interes_reserva(tasas_interes_raw)
+                return tasas_procesadas
+            else:
+                print("DEBUG - No se encontró repositorio de tasas de interés")
+                return {}
+        except Exception as e:
+            print(f"Error al cargar tasas de interés: {e}")
+            return {}
 
     def _calcular_endosos(
         self,

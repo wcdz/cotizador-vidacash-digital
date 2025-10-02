@@ -34,8 +34,8 @@ class JsonFactoresPagoRepository(FactoresPagoRepository):
         if base_path:
             self.base_path = Path(base_path)
         else:
-            # Ruta por defecto: raíz del proyecto / assets / producto
-            self.base_path = Path(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))) / "assets" / "cross"
+            # Ruta por defecto: raíz del proyecto / assets / productos / cross
+            self.base_path = Path(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))) / "assets" / "productos" / "cross"
 
         self.factores_pago_path = self.base_path / "factores_pago.json"
         self._cache = None

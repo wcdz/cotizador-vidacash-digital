@@ -3,7 +3,9 @@ Módulo específico para la cobertura de ITP (Incapacidad Total y Permanente)
 """
 
 from typing import Dict, Any
+import math
 from src.infrastructure.repositories import get_repos
+from src.models.services.parametros_calculados_service import ParametrosCalculadosService
 
 
 class ItpCobertura:
@@ -13,6 +15,7 @@ class ItpCobertura:
         self.producto = "endosos"
         self.cobertura = "itp"
         self.parametros = {}
+        self.parametros_calculados_service = ParametrosCalculadosService()
     
     def cargar_parametros(self) -> Dict[str, Any]:
         """
@@ -122,3 +125,41 @@ class ItpCobertura:
         except Exception as e:
             print(f"Error al calcular prima de ITP: {e}")
             return 0.0
+    
+    def calcular_parametros_calculados(
+        self, 
+        parametros_entrada: Dict[str, Any],
+        tasas_interes_data: Dict[str, Any],
+        producto
+    ) -> Dict[str, Any]:
+        """
+        Calcula todos los parámetros calculados específicos para ITP
+        
+        Args:
+            parametros_entrada: Parámetros de entrada del usuario
+            tasas_interes_data: Datos de tasas de interés
+            producto: Tipo de producto
+            
+        Returns:
+            Diccionario con parámetros calculados de ITP
+        """
+        try:
+            # Usar el servicio centralizado para calcular todos los parámetros básicos
+            parametros_calculados = self.parametros_calculados_service.get_parametros_calculados(
+                parametros_entrada, 
+                self.parametros,
+                tasas_interes_data,
+                producto,
+                "itp"
+            )
+            
+            # Aquí se pueden agregar cálculos específicos de ITP
+            # parametros_calculados["parametro_especifico_itp"] = self._calcular_algo_especifico()
+            
+            print(f"Parámetros calculados para ITP: {parametros_calculados}")
+            return parametros_calculados
+            
+        except Exception as e:
+            print(f"Error específico en cobertura ITP: {e}")
+            print(f"Tipo de error: {type(e).__name__}")
+            raise Exception(f"Error en cobertura ITP: {e}") from e

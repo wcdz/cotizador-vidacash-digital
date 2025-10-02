@@ -1,5 +1,5 @@
 {
-    "gasto_adquisicion": 915.38,
+    "gasto_adquisicion": 915.3821,
     "gasto_mantenimiento": 0,
     "tasa_costo_capital_tir": 0.15,
     "moce": 0.06,
@@ -19,5 +19,5 @@
     "impuesto_renta": 0,
     "reserva_endosos": 0.2575,
     "tipo_cambio": 3.3834,
-    "prima_asignada": 500
+    "prima_asignada": 159.643571157546
 }
