@@ -2,6 +2,7 @@ from typing import Dict, Any
 from src.models.services.flujo_resultado_service import FlujoResultadoService
 from src.common.producto import Producto
 from src.models.domain.gastos_domain import GastosDomain
+from typing import List
 
 
 class GastosService:
@@ -40,17 +41,9 @@ class GastosService:
         self.inflacion_mensual = inflacion_mensual
         self.periodo_vigencia = periodo_vigencia
 
-    def calcular_gastos(self, expuestos_mes: Dict[int, Dict[str, Any]]):
-
-        vivos_inicio = [expuestos_mes[mes]["vivos_inicio"] for mes in expuestos_mes]
-
-        primas_recurrentes = self.flujo_resultado_service.calcular_primas_recurrentes(
-            vivos_inicio,
-            self.periodo_pago_primas,
-            self.frecuencia_pago_primas,
-            self.prima,
-            self.fraccionamiento_primas,
-        )
+    def calcular_gastos(
+        self, vivos_inicio: List[float], primas_recurrentes: List[float]
+    ):
 
         gastos_mantenimiento_prima_co = (
             self.gastos_domain.calcular_gastos_mantenimiento_prima_co(
