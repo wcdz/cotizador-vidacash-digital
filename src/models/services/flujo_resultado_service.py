@@ -2,6 +2,9 @@ from src.models.domain.flujo_resultado import FlujoResultado
 
 
 class FlujoResultadoService:
+    
+    def __init__(self):
+        self.flujo_resultado = FlujoResultado()
 
     def calcular_primas_recurrentes(
         self,

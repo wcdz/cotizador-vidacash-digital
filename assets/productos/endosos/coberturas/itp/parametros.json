@@ -13,10 +13,10 @@
     "tiene_asistencia": true,
     "costo_mensual_asistencia_funeraria": 0,
     "moneda_poliza": 0,
-    "fraccionamiento_primas": 0,
+    "fraccionamiento_primas": 1,
     "comision": 0.012,
     "costo_asistencia_funeraria": 13,
     "impuesto_renta": 0,
     "tipo_cambio": 3.339,
-    "prima_asignada": 13.1865780424015
+    "prima_asignada": 14.8725543966787
 }
