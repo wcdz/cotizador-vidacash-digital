@@ -1,0 +1,66 @@
+{
+    "10": {
+        "duracion_tipo": 10,
+        "tasa_inversion": 5.50
+    },
+    "11": {
+        "duracion_tipo": 11,
+        "tasa_inversion": 5.50
+    },
+    "12": {
+        "duracion_tipo": 12,
+        "tasa_inversion": 5.50
+    },
+    "13": {
+        "duracion_tipo": 13,
+        "tasa_inversion": 5.50
+    },
+    "14": {
+        "duracion_tipo": 14,
+        "tasa_inversion": 5.50
+    },
+    "15": {
+        "duracion_tipo": 15,
+        "tasa_inversion": 5.50
+    },
+    "16": {
+        "duracion_tipo": 16,
+        "tasa_inversion": 5.50
+    },
+    "17": {
+        "duracion_tipo": 17,
+        "tasa_inversion": 5.50
+    },
+    "18": {
+        "duracion_tipo": 18,
+        "tasa_inversion": 5.50
+    },
+    "19": {
+        "duracion_tipo": 19,
+        "tasa_inversion": 5.50
+    },
+    "20": {
+        "duracion_tipo": 20,
+        "tasa_inversion": 5.50
+    },
+    "21": {
+        "duracion_tipo": 21,
+        "tasa_inversion": 5.50
+    },
+    "22": {
+        "duracion_tipo": 22,
+        "tasa_inversion": 5.50
+    },
+    "23": {
+        "duracion_tipo": 23,
+        "tasa_inversion": 5.50
+    },
+    "24": {
+        "duracion_tipo": 24,
+        "tasa_inversion": 5.50
+    },
+    "25": {
+        "duracion_tipo": 25,
+        "tasa_inversion": 5.50
+    }
+}

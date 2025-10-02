@@ -1,0 +1,682 @@
+{
+    "18": {
+        "itp_anticipo_scor": 0.215,
+        "enf_graves_h_scor": 0.399,
+        "enf_graves_m_scor": 0.378,
+        "enf_graves_adel_h_scor": 0.399,
+        "enf_graves_adel_m_scor": 0.221,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "19": {
+        "itp_anticipo_scor": 0.215,
+        "enf_graves_h_scor": 0.399,
+        "enf_graves_m_scor": 0.378,
+        "enf_graves_adel_h_scor": 0.399,
+        "enf_graves_adel_m_scor": 0.252,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "20": {
+        "itp_anticipo_scor": 0.215,
+        "enf_graves_h_scor": 0.399,
+        "enf_graves_m_scor": 0.378,
+        "enf_graves_adel_h_scor": 0.42,
+        "enf_graves_adel_m_scor": 0.315,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "21": {
+        "itp_anticipo_scor": 0.215,
+        "enf_graves_h_scor": 0.431,
+        "enf_graves_m_scor": 0.41,
+        "enf_graves_adel_h_scor": 0.431,
+        "enf_graves_adel_m_scor": 0.268,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "22": {
+        "itp_anticipo_scor": 0.215,
+        "enf_graves_h_scor": 0.473,
+        "enf_graves_m_scor": 0.441,
+        "enf_graves_adel_h_scor": 0.441,
+        "enf_graves_adel_m_scor": 0.431,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "23": {
+        "itp_anticipo_scor": 0.215,
+        "enf_graves_h_scor": 0.515,
+        "enf_graves_m_scor": 0.473,
+        "enf_graves_adel_h_scor": 0.452,
+        "enf_graves_adel_m_scor": 0.494,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "24": {
+        "itp_anticipo_scor": 0.215,
+        "enf_graves_h_scor": 0.557,
+        "enf_graves_m_scor": 0.515,
+        "enf_graves_adel_h_scor": 0.473,
+        "enf_graves_adel_m_scor": 0.557,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "25": {
+        "itp_anticipo_scor": 0.215,
+        "enf_graves_h_scor": 0.609,
+        "enf_graves_m_scor": 0.557,
+        "enf_graves_adel_h_scor": 0.515,
+        "enf_graves_adel_m_scor": 0.672,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "26": {
+        "itp_anticipo_scor": 0.226,
+        "enf_graves_h_scor": 0.662,
+        "enf_graves_m_scor": 0.62,
+        "enf_graves_adel_h_scor": 0.546,
+        "enf_graves_adel_m_scor": 0.756,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "27": {
+        "itp_anticipo_scor": 0.226,
+        "enf_graves_h_scor": 0.714,
+        "enf_graves_m_scor": 0.693,
+        "enf_graves_adel_h_scor": 0.557,
+        "enf_graves_adel_m_scor": 0.84,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "28": {
+        "itp_anticipo_scor": 0.226,
+        "enf_graves_h_scor": 0.777,
+        "enf_graves_m_scor": 0.777,
+        "enf_graves_adel_h_scor": 0.588,
+        "enf_graves_adel_m_scor": 0.935,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "29": {
+        "itp_anticipo_scor": 0.236,
+        "enf_graves_h_scor": 0.851,
+        "enf_graves_m_scor": 0.861,
+        "enf_graves_adel_h_scor": 0.62,
+        "enf_graves_adel_m_scor": 1.04,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "30": {
+        "itp_anticipo_scor": 0.236,
+        "enf_graves_h_scor": 0.924,
+        "enf_graves_m_scor": 0.966,
+        "enf_graves_adel_h_scor": 0.63,
+        "enf_graves_adel_m_scor": 1.124,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "31": {
+        "itp_anticipo_scor": 0.236,
+        "enf_graves_h_scor": 0.998,
+        "enf_graves_m_scor": 1.071,
+        "enf_graves_adel_h_scor": 0.672,
+        "enf_graves_adel_m_scor": 1.229,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "32": {
+        "itp_anticipo_scor": 0.246,
+        "enf_graves_h_scor": 1.092,
+        "enf_graves_m_scor": 1.197,
+        "enf_graves_adel_h_scor": 0.714,
+        "enf_graves_adel_m_scor": 1.334,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "33": {
+        "itp_anticipo_scor": 0.246,
+        "enf_graves_h_scor": 1.187,
+        "enf_graves_m_scor": 0.987,
+        "enf_graves_adel_h_scor": 0.767,
+        "enf_graves_adel_m_scor": 1.449,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "34": {
+        "itp_anticipo_scor": 0.256,
+        "enf_graves_h_scor": 1.292,
+        "enf_graves_m_scor": 1.481,
+        "enf_graves_adel_h_scor": 0.847,
+        "enf_graves_adel_m_scor": 1.575,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "35": {
+        "itp_anticipo_scor": 0.267,
+        "enf_graves_h_scor": 1.407,
+        "enf_graves_m_scor": 1.638,
+        "enf_graves_adel_h_scor": 0.893,
+        "enf_graves_adel_m_scor": 1.649,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "36": {
+        "itp_anticipo_scor": 0.277,
+        "enf_graves_h_scor": 1.533,
+        "enf_graves_m_scor": 1.817,
+        "enf_graves_adel_h_scor": 0.998,
+        "enf_graves_adel_m_scor": 1.775,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "37": {
+        "itp_anticipo_scor": 0.287,
+        "enf_graves_h_scor": 1.68,
+        "enf_graves_m_scor": 2.016,
+        "enf_graves_adel_h_scor": 1.113,
+        "enf_graves_adel_m_scor": 1.911,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "38": {
+        "itp_anticipo_scor": 0.308,
+        "enf_graves_h_scor": 1.827,
+        "enf_graves_m_scor": 2.237,
+        "enf_graves_adel_h_scor": 1.25,
+        "enf_graves_adel_m_scor": 2.048,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "39": {
+        "itp_anticipo_scor": 0.338,
+        "enf_graves_h_scor": 1.995,
+        "enf_graves_m_scor": 2.478,
+        "enf_graves_adel_h_scor": 1.407,
+        "enf_graves_adel_m_scor": 2.195,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "40": {
+        "itp_anticipo_scor": 0.369,
+        "enf_graves_h_scor": 2.069,
+        "enf_graves_m_scor": 2.699,
+        "enf_graves_adel_h_scor": 1.523,
+        "enf_graves_adel_m_scor": 2.289,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "41": {
+        "itp_anticipo_scor": 0.41,
+        "enf_graves_h_scor": 2.3,
+        "enf_graves_m_scor": 2.993,
+        "enf_graves_adel_h_scor": 1.722,
+        "enf_graves_adel_m_scor": 2.457,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "42": {
+        "itp_anticipo_scor": 0.451,
+        "enf_graves_h_scor": 2.552,
+        "enf_graves_m_scor": 3.329,
+        "enf_graves_adel_h_scor": 1.953,
+        "enf_graves_adel_m_scor": 2.625,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "43": {
+        "itp_anticipo_scor": 0.513,
+        "enf_graves_h_scor": 2.835,
+        "enf_graves_m_scor": 3.528,
+        "enf_graves_adel_h_scor": 2.195,
+        "enf_graves_adel_m_scor": 2.804,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "44": {
+        "itp_anticipo_scor": 0.564,
+        "enf_graves_h_scor": 3.15,
+        "enf_graves_m_scor": 3.738,
+        "enf_graves_adel_h_scor": 2.468,
+        "enf_graves_adel_m_scor": 2.993,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "45": {
+        "itp_anticipo_scor": 0.625,
+        "enf_graves_h_scor": 3.507,
+        "enf_graves_m_scor": 3.948,
+        "enf_graves_adel_h_scor": 2.636,
+        "enf_graves_adel_m_scor": 3.024,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "46": {
+        "itp_anticipo_scor": 0.687,
+        "enf_graves_h_scor": 3.896,
+        "enf_graves_m_scor": 4.179,
+        "enf_graves_adel_h_scor": 2.951,
+        "enf_graves_adel_m_scor": 3.213,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "47": {
+        "itp_anticipo_scor": 0.759,
+        "enf_graves_h_scor": 4.232,
+        "enf_graves_m_scor": 4.421,
+        "enf_graves_adel_h_scor": 3.287,
+        "enf_graves_adel_m_scor": 3.423,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "48": {
+        "itp_anticipo_scor": 0.851,
+        "enf_graves_h_scor": 4.83,
+        "enf_graves_m_scor": 4.788,
+        "enf_graves_adel_h_scor": 3.644,
+        "enf_graves_adel_m_scor": 3.623,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "49": {
+        "itp_anticipo_scor": 0.964,
+        "enf_graves_h_scor": 5.387,
+        "enf_graves_m_scor": 5.198,
+        "enf_graves_adel_h_scor": 4.011,
+        "enf_graves_adel_m_scor": 3.843,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "50": {
+        "itp_anticipo_scor": 1.076,
+        "enf_graves_h_scor": 6.101,
+        "enf_graves_m_scor": 5.397,
+        "enf_graves_adel_h_scor": 4.232,
+        "enf_graves_adel_m_scor": 3.917,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "51": {
+        "itp_anticipo_scor": 1.21,
+        "enf_graves_h_scor": 6.584,
+        "enf_graves_m_scor": 5.649,
+        "enf_graves_adel_h_scor": 4.62,
+        "enf_graves_adel_m_scor": 4.137,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "52": {
+        "itp_anticipo_scor": 1.353,
+        "enf_graves_h_scor": 7.098,
+        "enf_graves_m_scor": 5.915,
+        "enf_graves_adel_h_scor": 5.019,
+        "enf_graves_adel_m_scor": 4.358,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "53": {
+        "itp_anticipo_scor": 1.517,
+        "enf_graves_h_scor": 7.655,
+        "enf_graves_m_scor": 6.195,
+        "enf_graves_adel_h_scor": 5.429,
+        "enf_graves_adel_m_scor": 4.589,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "54": {
+        "itp_anticipo_scor": 1.691,
+        "enf_graves_h_scor": 8.253,
+        "enf_graves_m_scor": 6.489,
+        "enf_graves_adel_h_scor": 5.859,
+        "enf_graves_adel_m_scor": 4.83,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "55": {
+        "itp_anticipo_scor": 1.907,
+        "enf_graves_h_scor": 8.894,
+        "enf_graves_m_scor": 6.794,
+        "enf_graves_adel_h_scor": 6.258,
+        "enf_graves_adel_m_scor": 4.925,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "56": {
+        "itp_anticipo_scor": 2.132,
+        "enf_graves_h_scor": 9.597,
+        "enf_graves_m_scor": 7.13,
+        "enf_graves_adel_h_scor": 6.71,
+        "enf_graves_adel_m_scor": 5.177,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "57": {
+        "itp_anticipo_scor": 2.388,
+        "enf_graves_h_scor": 10.343,
+        "enf_graves_m_scor": 7.476,
+        "enf_graves_adel_h_scor": 7.172,
+        "enf_graves_adel_m_scor": 5.439,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "58": {
+        "itp_anticipo_scor": 3.065,
+        "enf_graves_h_scor": 11.162,
+        "enf_graves_m_scor": 7.844,
+        "enf_graves_adel_h_scor": 7.644,
+        "enf_graves_adel_m_scor": 5.712,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "59": {
+        "itp_anticipo_scor": 3.547,
+        "enf_graves_h_scor": 11.697,
+        "enf_graves_m_scor": 8.243,
+        "enf_graves_adel_h_scor": 8.148,
+        "enf_graves_adel_m_scor": 6.017,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "60": {
+        "itp_anticipo_scor": 4.121,
+        "enf_graves_h_scor": 12.978,
+        "enf_graves_m_scor": 8.652,
+        "enf_graves_adel_h_scor": 8.432,
+        "enf_graves_adel_m_scor": 5.912,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "61": {
+        "itp_anticipo_scor": 4.756,
+        "enf_graves_h_scor": 13.608,
+        "enf_graves_m_scor": 9.104,
+        "enf_graves_adel_h_scor": 8.978,
+        "enf_graves_adel_m_scor": 6.227,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "62": {
+        "itp_anticipo_scor": 5.433,
+        "enf_graves_h_scor": 14.27,
+        "enf_graves_m_scor": 9.587,
+        "enf_graves_adel_h_scor": 95.455,
+        "enf_graves_adel_m_scor": 6.573,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "63": {
+        "itp_anticipo_scor": 6.14,
+        "enf_graves_h_scor": 14.963,
+        "enf_graves_m_scor": 10.091,
+        "enf_graves_adel_h_scor": 10.154,
+        "enf_graves_adel_m_scor": 6.93,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "64": {
+        "itp_anticipo_scor": 6.837,
+        "enf_graves_h_scor": 15.698,
+        "enf_graves_m_scor": 10.637,
+        "enf_graves_adel_h_scor": 10.784,
+        "enf_graves_adel_m_scor": 7.35,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "65": {
+        "itp_anticipo_scor": 7.544,
+        "enf_graves_h_scor": 16.475,
+        "enf_graves_m_scor": 11.214,
+        "enf_graves_adel_h_scor": 11.33,
+        "enf_graves_adel_m_scor": 7.214,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "66": {
+        "itp_anticipo_scor": 8.708,
+        "enf_graves_h_scor": 17.274,
+        "enf_graves_m_scor": 11.799,
+        "enf_graves_adel_h_scor": 12.054,
+        "enf_graves_adel_m_scor": 7.665,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "67": {
+        "itp_anticipo_scor": 9.946,
+        "enf_graves_h_scor": 18.114,
+        "enf_graves_m_scor": 12.425,
+        "enf_graves_adel_h_scor": 12.81,
+        "enf_graves_adel_m_scor": 8.148,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "68": {
+        "itp_anticipo_scor": 11.241,
+        "enf_graves_h_scor": 18.994,
+        "enf_graves_m_scor": 13.078,
+        "enf_graves_adel_h_scor": 13.629,
+        "enf_graves_adel_m_scor": 8.673,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "69": {
+        "itp_anticipo_scor": 12.517,
+        "enf_graves_h_scor": 19.927,
+        "enf_graves_m_scor": 13.786,
+        "enf_graves_adel_h_scor": 14.49,
+        "enf_graves_adel_m_scor": 9.23,
+        "fallecimiento_accidental": 0.308,
+        "fallecimiento_accidente_transito": 0.154,
+        "invalidez_accidental": 0.255
+    },
+    "70": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "71": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "72": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "73": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "74": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "75": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "76": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "77": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "78": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "79": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "80": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "81": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "82": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "83": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "84": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    },
+    "85": {
+        "itp_anticipo_scor": 0,
+        "enf_graves_h_scor": 0,
+        "enf_graves_m_scor": 0,
+        "enf_graves_adel_h_scor": 0,
+        "enf_graves_adel_m_scor": 0,
+        "fallecimiento_accidental": 0,
+        "fallecimiento_accidente_transito": 0,
+        "invalidez_accidental": 0
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "gasto_adquisicion": 0,
+    "gasto_mantenimiento": 0,
+    "tasa_costo_capital_tir": 0.128,
+    "moce": 0.06,
+    "inflacion_anual": 0,
+    "margen_solvencia": 0.05,
+    "fondo_garantia": 0.35,
+    "ajuste_mortalidad": 150,
+    "moneda": "SOLES",
+    "valor_dolar": 0,
+    "valor_soles": 0,
+    "tiene_asistencia": true,
+    "costo_mensual_asistencia_funeraria": 0,
+    "moneda_poliza": 0,
+    "fraccionamiento_primas": 0,
+    "comision": 0.012,
+    "costo_asistencia_funeraria": 13,
+    "impuesto_renta": 0,
+    "tipo_cambio": 3.339,
+    "prima_asignada": 13.1865780424015
+}

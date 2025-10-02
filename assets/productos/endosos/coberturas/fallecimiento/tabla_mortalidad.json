@@ -1,0 +1,410 @@
+{
+    "18": {
+        "hombres_no_fuma": 0.5482,
+        "mujeres_no_fuma": 0.3018,
+        "hombres_fuma": 0.5482,
+        "mujeres_fuma": 0.3018
+    },
+    "19": {
+        "hombres_no_fuma": 0.5729,
+        "mujeres_no_fuma": 0.3142,
+        "hombres_fuma": 0.57290,
+        "mujeres_fuma": 0.31420
+    },
+    "20": {
+        "hombres_no_fuma": 0.5852,
+        "mujeres_no_fuma": 0.3234,
+        "hombres_fuma": 0.5852,
+        "mujeres_fuma": 0.32340
+    },
+    "21": {
+        "hombres_no_fuma": 0.5883,
+        "mujeres_no_fuma": 0.3296,
+        "hombres_fuma": 0.5883,
+        "mujeres_fuma": 0.3296
+    },
+    "22": {
+        "hombres_no_fuma": 0.5821,
+        "mujeres_no_fuma": 0.3357,
+        "hombres_fuma": 0.5821,
+        "mujeres_fuma": 0.3357
+    },
+    "23": {
+        "hombres_no_fuma": 0.5729,
+        "mujeres_no_fuma": 0.3419,
+        "hombres_fuma": 0.5729,
+        "mujeres_fuma": 0.3419
+    },
+    "24": {
+        "hombres_no_fuma": 0.2606,
+        "mujeres_no_fuma": 0.3511,
+        "hombres_fuma": 0.2606,
+        "mujeres_fuma": 0.3511
+    },
+    "25": {
+        "hombres_no_fuma": 0.5452,
+        "mujeres_no_fuma": 0.3573,
+        "hombres_fuma": 0.5452,
+        "mujeres_fuma": 0.3573
+    },
+    "26": {
+        "hombres_no_fuma": 0.5328,
+        "mujeres_no_fuma": 0.3665,
+        "hombres_fuma": 0.5328,
+        "mujeres_fuma": 0.3665
+    },
+    "27": {
+        "hombres_no_fuma": 0.5267,
+        "mujeres_no_fuma": 0.37580,
+        "hombres_fuma": 0.5267,
+        "mujeres_fuma": 0.3758
+    },
+    "28": {
+        "hombres_no_fuma": 0.5236,
+        "mujeres_no_fuma": 0.3881,
+        "hombres_fuma": 0.5236,
+        "mujeres_fuma": 0.3881
+    },
+    "29": {
+        "hombres_no_fuma": 0.5267,
+        "mujeres_no_fuma": 0.4004,
+        "hombres_fuma": 0.5267,
+        "mujeres_fuma": 0.40040
+    },
+    "30": {
+        "hombres_no_fuma": 0.5328,
+        "mujeres_no_fuma": 0.4158,
+        "hombres_fuma": 0.5328,
+        "mujeres_fuma": 0.4158
+    },
+    "31": {
+        "hombres_no_fuma": 0.5482,
+        "mujeres_no_fuma": 0.4312,
+        "hombres_fuma": 0.5482,
+        "mujeres_fuma": 0.4312
+    },
+    "32": {
+        "hombres_no_fuma": 0.5636,
+        "mujeres_no_fuma": 0.4466,
+        "hombres_fuma": 0.5636,
+        "mujeres_fuma": 0.4466
+    },
+    "33": {
+        "hombres_no_fuma": 0.5883,
+        "mujeres_no_fuma": 0.462,
+        "hombres_fuma": 0.5883,
+        "mujeres_fuma": 0.462
+    },
+    "34": {
+        "hombres_no_fuma": 0.616,
+        "mujeres_no_fuma": 0.4866,
+        "hombres_fuma": 0.616,
+        "mujeres_fuma": 0.4866
+    },
+    "35": {
+        "hombres_no_fuma": 0.6499,
+        "mujeres_no_fuma": 0.5082,
+        "hombres_fuma": 0.6499,
+        "mujeres_fuma": 0.5082
+    },
+    "36": {
+        "hombres_no_fuma": 0.6899,
+        "mujeres_no_fuma": 0.5421,
+        "hombres_fuma": 0.6899,
+        "mujeres_fuma": 0.5421
+    },
+    "37": {
+        "hombres_no_fuma": 0.7392,
+        "mujeres_no_fuma": 0.5821,
+        "hombres_fuma": 0.7392,
+        "mujeres_fuma": 0.5821
+    },
+    "38": {
+        "hombres_no_fuma": 0.7946,
+        "mujeres_no_fuma": 0.6283,
+        "hombres_fuma": 0.7946,
+        "mujeres_fuma": 0.6283
+    },
+    "39": {
+        "hombres_no_fuma": 0.8593,
+        "mujeres_no_fuma": 0.6839,
+        "hombres_fuma": 0.8593,
+        "mujeres_fuma": 0.6839
+    },
+    "40": {
+        "hombres_no_fuma": 0.9302,
+        "mujeres_no_fuma": 0.7454,
+        "hombres_fuma": 0.9302,
+        "mujeres_fuma": 0.7454
+    },
+    "41": {
+        "hombres_no_fuma": 1.0133,
+        "mujeres_no_fuma": 0.8131,
+        "hombres_fuma": 1.0133,
+        "mujeres_fuma": 0.8131
+    },
+    "42": {
+        "hombres_no_fuma": 1.0965,
+        "mujeres_no_fuma": 0.884,
+        "hombres_fuma": 1.0965,
+        "mujeres_fuma": 0.884
+    },
+    "43": {
+        "hombres_no_fuma": 1.192,
+        "mujeres_no_fuma": 0.9517,
+        "hombres_fuma": 1.192,
+        "mujeres_fuma": 0.9517
+    },
+    "44": {
+        "hombres_no_fuma": 1.2905,
+        "mujeres_no_fuma": 1.0226,
+        "hombres_fuma": 1.2905,
+        "mujeres_fuma": 1.0226
+    },
+    "45": {
+        "hombres_no_fuma": 1.4014,
+        "mujeres_no_fuma": 1.0965,
+        "hombres_fuma": 1.4014,
+        "mujeres_fuma": 1.0965
+    },
+    "46": {
+        "hombres_no_fuma": 1.5154,
+        "mujeres_no_fuma": 1.1704,
+        "hombres_fuma": 1.5154,
+        "mujeres_fuma": 1.1704
+    },
+    "47": {
+        "hombres_no_fuma": 1.6386,
+        "mujeres_no_fuma": 1.2474,
+        "hombres_fuma": 1.6386,
+        "mujeres_fuma": 1.2474
+    },
+    "48": {
+        "hombres_no_fuma": 1.7679,
+        "mujeres_no_fuma": 1.3336,
+        "hombres_fuma": 1.7679,
+        "mujeres_fuma": 1.3336
+    },
+    "49": {
+        "hombres_no_fuma": 1.9127,
+        "mujeres_no_fuma": 1.426,
+        "hombres_fuma": 1.9127,
+        "mujeres_fuma": 1.426
+    },
+    "50": {
+        "hombres_no_fuma": 2.0667,
+        "mujeres_no_fuma": 1.5277,
+        "hombres_fuma": 2.0667,
+        "mujeres_fuma": 1.5277
+    },
+    "51": {
+        "hombres_no_fuma": 2.2484,
+        "mujeres_no_fuma": 1.6355,
+        "hombres_fuma": 2.2484,
+        "mujeres_fuma": 1.6355
+    },
+    "52": {
+        "hombres_no_fuma": 2.4517,
+        "mujeres_no_fuma": 1.7556,
+        "hombres_fuma": 2.4517,
+        "mujeres_fuma": 1.7556
+    },
+    "53": {
+        "hombres_no_fuma": 2.6827,
+        "mujeres_no_fuma": 1.8942,
+        "hombres_fuma": 2.6827,
+        "mujeres_fuma": 1.8942
+    },
+    "54": {
+        "hombres_no_fuma": 2.9445,
+        "mujeres_no_fuma": 2.0359,
+        "hombres_fuma": 2.9445,
+        "mujeres_fuma": 2.0359
+    },
+    "55": {
+        "hombres_no_fuma": 3.2248,
+        "mujeres_no_fuma": 2.1837,
+        "hombres_fuma": 3.2248,
+        "mujeres_fuma": 2.1837
+    },
+    "56": {
+        "hombres_no_fuma": 3.5297,
+        "mujeres_no_fuma": 2.3316,
+        "hombres_fuma": 3.5297,
+        "mujeres_fuma": 2.3316
+    },
+    "57": {
+        "hombres_no_fuma": 3.8469,
+        "mujeres_no_fuma": 2.4732,
+        "hombres_fuma": 3.8469,
+        "mujeres_fuma": 2.4732
+    },
+    "58": {
+        "hombres_no_fuma": 4.1857,
+        "mujeres_no_fuma": 2.6088,
+        "hombres_fuma": 4.1857,
+        "mujeres_fuma": 2.6088
+    },
+    "59": {
+        "hombres_no_fuma": 4.5492,
+        "mujeres_no_fuma": 2.7535,
+        "hombres_fuma": 4.5492,
+        "mujeres_fuma": 2.7535
+    },
+    "60": {
+        "hombres_no_fuma": 4.9526,
+        "mujeres_no_fuma": 2.9168,
+        "hombres_fuma": 4.9526,
+        "mujeres_fuma": 2.9168
+    },
+    "61": {
+        "hombres_no_fuma": 5.4023,
+        "mujeres_no_fuma": 3.12,
+        "hombres_fuma": 5.4023,
+        "mujeres_fuma": 3.12
+    },
+    "62": {
+        "hombres_no_fuma": 5.9105,
+        "mujeres_no_fuma": 3.3757,
+        "hombres_fuma": 5.9105,
+        "mujeres_fuma": 3.3757
+    },
+    "63": {
+        "hombres_no_fuma": 6.4865,
+        "mujeres_no_fuma": 3.7022,
+        "hombres_fuma": 6.4865,
+        "mujeres_fuma": 3.7022
+    },
+    "64": {
+        "hombres_no_fuma": 7.1271,
+        "mujeres_no_fuma": 4.081,
+        "hombres_fuma": 7.1271,
+        "mujeres_fuma": 4.081
+    },
+    "65": {
+        "hombres_no_fuma": 7.8294,
+        "mujeres_no_fuma": 4.4937,
+        "hombres_fuma": 7.8294,
+        "mujeres_fuma": 4.4937
+    },
+    "66": {
+        "hombres_no_fuma": 8.5778,
+        "mujeres_no_fuma": 4.928,
+        "hombres_fuma": 8.5778,
+        "mujeres_fuma": 4.928
+    },
+    "67": {
+        "hombres_no_fuma": 9.3755,
+        "mujeres_no_fuma": 5.3684,
+        "hombres_fuma": 9.3755,
+        "mujeres_fuma": 5.3684
+    },
+    "68": {
+        "hombres_no_fuma": 1.0225,
+        "mujeres_no_fuma": 5.8027,
+        "hombres_fuma": 1.0225,
+        "mujeres_fuma": 5.8027
+    },
+    "69": {
+        "hombres_no_fuma": 11.1404,
+        "mujeres_no_fuma": 6.2709,
+        "hombres_fuma": 11.1404,
+        "mujeres_fuma": 6.27090
+    },
+    "70": {
+        "hombres_no_fuma": 12.1691,
+        "mujeres_no_fuma": 6.8099,
+        "hombres_fuma": 12.1691,
+        "mujeres_fuma": 6.8099
+    },
+    "71": {
+        "hombres_no_fuma": 13.3364,
+        "mujeres_no_fuma": 7.4628,
+        "hombres_fuma": 13.3364,
+        "mujeres_fuma": 7.4628
+    },
+    "72": {
+        "hombres_no_fuma": 14.6762,
+        "mujeres_no_fuma": 8.276,
+        "hombres_fuma": 14.6762,
+        "mujeres_fuma": 8.276
+    },
+    "73": {
+        "hombres_no_fuma": 16.2131,
+        "mujeres_no_fuma": 9.2739,
+        "hombres_fuma": 16.2131,
+        "mujeres_fuma": 9.2739
+    },
+    "74": {
+        "hombres_no_fuma": 17.9225,
+        "mujeres_no_fuma": 10.4504,
+        "hombres_fuma": 17.9225,
+        "mujeres_fuma": 10.4504
+    },
+    "75": {
+        "hombres_no_fuma": 19.7705,
+        "mujeres_no_fuma": 11.7779,
+        "hombres_fuma": 19.7705,
+        "mujeres_fuma": 11.7779
+    },
+    "76": {
+        "hombres_no_fuma": 21.7232,
+        "mujeres_no_fuma": 13.2348,
+        "hombres_fuma": 21.7232,
+        "mujeres_fuma": 13.2348
+    },
+    "77": {
+        "hombres_no_fuma": 23.753,
+        "mujeres_no_fuma": 14.7963,
+        "hombres_fuma": 23.753,
+        "mujeres_fuma": 14.79630
+    },
+    "78": {
+        "hombres_no_fuma": 25.8412,
+        "mujeres_no_fuma": 16.4626,
+        "hombres_fuma": 25.8412,
+        "mujeres_fuma": 16.4626
+    },
+    "79": {
+        "hombres_no_fuma": 28.0434,
+        "mujeres_no_fuma": 18.2798,
+        "hombres_fuma": 28.0434,
+        "mujeres_fuma": 18.2798
+    },
+    "80": {
+        "hombres_no_fuma": 30.4427,
+        "mujeres_no_fuma": 20.3249,
+        "hombres_fuma": 30.4427,
+        "mujeres_fuma": 20.3249
+    },
+    "81": {
+        "hombres_no_fuma": 33.1038,
+        "mujeres_no_fuma": 22.6688,
+        "hombres_fuma": 33.1038,
+        "mujeres_fuma": 22.6688
+    },
+    "82": {
+        "hombres_no_fuma": 36.113,
+        "mujeres_no_fuma": 25.3792,
+        "hombres_fuma": 36.113,
+        "mujeres_fuma": 25.3792
+    },
+    "83": {
+        "hombres_no_fuma": 39.5041,
+        "mujeres_no_fuma": 28.4992,
+        "hombres_fuma": 39.5041,
+        "mujeres_fuma": 28.4992
+    },
+    "84": {
+        "hombres_no_fuma": 43.197,
+        "mujeres_no_fuma": 31.9735,
+        "hombres_fuma": 43.197,
+        "mujeres_fuma": 31.9735
+    },
+    "85": {
+        "hombres_no_fuma": 47.1086,
+        "mujeres_no_fuma": 35.7588,
+        "hombres_fuma": 47.1086,
+        "mujeres_fuma": 35.7588
+    }
+}
