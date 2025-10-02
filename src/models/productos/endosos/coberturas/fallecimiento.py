@@ -171,7 +171,7 @@ class FallecimientoCobertura:
             )
 
             # Calcular expuestos al mes
-            expuestos_mes = calculo_actuarial_service.execute()
+            expuestos_mes, gastos = calculo_actuarial_service.execute()
 
             # Aquí se pueden agregar más cálculos actuariales en el futuro
             # reserva_matematica = self._calcular_reserva_matematica()
@@ -180,6 +180,7 @@ class FallecimientoCobertura:
 
             resultados_actuariales = {
                 "expuestos_mes": expuestos_mes,
+                "gastos": gastos,
                 # "reserva_matematica": reserva_matematica,
                 # "prima_pura": prima_pura,
             }
