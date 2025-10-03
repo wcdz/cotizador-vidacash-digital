@@ -1,4 +1,4 @@
-from src.models.domain.flujo_resultado import FlujoResultado
+from src.models.domain.flujo_resultado_domain import FlujoResultado
 from src.common.producto import Producto
 from src.infrastructure.repositories import get_repos
 from typing import List

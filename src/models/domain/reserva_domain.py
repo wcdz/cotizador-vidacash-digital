@@ -1,0 +1,122 @@
+from src.utils.anios_meses import anios_meses
+
+
+class ReservaDomain:
+
+    def __init__(
+        self,
+        periodo_vigencia: int,
+        matriz_devolucion: dict,
+        prima: float,
+        fraccionamiento_primas: float,
+        porcentaje_devolucion: float,
+    ):
+        self.periodo_vigencia = periodo_vigencia
+        self.matriz_devolucion = matriz_devolucion
+        self.prima = prima
+        self.fraccionamiento_primas = fraccionamiento_primas
+        self.primas_pagadas = self.calcular_primas_pagadas(
+            self.periodo_vigencia, self.prima, self.fraccionamiento_primas
+        )
+        self.porcentaje_devolucion_anual = self.calcular_porcentaje_devolucion_anual(
+            self.periodo_vigencia, self.matriz_devolucion
+        )
+        self.porcentaje_devolucion_mensual = (
+            self.calcular_porcentaje_devolucion_mensual(self.periodo_vigencia)
+        )
+        self.porcentaje_devolucion = porcentaje_devolucion / 100
+
+    def calcular_rescate(self):
+        primas_pagadas = self.primas_pagadas
+        porcentaje_devolucion_mensual = self.porcentaje_devolucion_mensual
+
+        rescates = []
+        for i in range(len(primas_pagadas)):
+            año_poliza = (i // 12) + 1
+            mes_poliza = i + 1
+            _porcentaje_devolucion = self.porcentaje_devolucion
+
+            if año_poliza <= self.periodo_vigencia:
+                rescate = (
+                    self.prima
+                    * _porcentaje_devolucion
+                    * mes_poliza
+                    * porcentaje_devolucion_mensual[i]
+                )
+            else:
+                rescate = 0
+
+            rescates.append(rescate)
+
+        return rescates
+
+    def calcular_primas_pagadas(
+        self, periodo_vigencia: int, prima: float, fraccionamiento_primas: float
+    ):
+        meses_total_poliza = periodo_vigencia * 12
+        primas_pagadas = []
+
+        for mes_poliza in range(1, meses_total_poliza + 1):
+            anio_poliza = (mes_poliza - 1) // 12 + 1
+
+            if anio_poliza > periodo_vigencia:
+                primas_pagadas.append(0.0)
+            else:
+                primas_pagadas.append(prima * fraccionamiento_primas)
+
+        return primas_pagadas
+
+    def calcular_porcentaje_devolucion_mensual(self, periodo_vigencia: int):
+        porcentaje_devolucion_anual = self.porcentaje_devolucion_anual
+        total_meses = anios_meses(periodo_vigencia)
+        porcentaje_devolucion_mensual = []
+
+        for i in range(total_meses):
+            mes_poliza = i + 1
+            anio_poliza = (i // 12) + 1
+            mes_del_anio = (i % 12) + 1
+
+            if mes_poliza > total_meses:
+                porcentaje_devolucion_mensual.append(0.0)
+            elif (
+                anio_poliza == periodo_vigencia
+                and (mes_poliza / mes_del_anio) == periodo_vigencia
+            ):
+                porcentaje_devolucion_mensual.append(1.0)
+            else:
+                porcentaje = (
+                    porcentaje_devolucion_anual[anio_poliza - 1]
+                    if anio_poliza - 1 < len(porcentaje_devolucion_anual)
+                    else 0.0
+                )
+                porcentaje_devolucion_mensual.append(porcentaje)
+        return porcentaje_devolucion_mensual
+
+    def calcular_porcentaje_devolucion_anual(
+        self, periodo_vigencia: float, matriz_devolucion: dict
+    ):
+        anios = periodo_vigencia
+        porcentaje_devolucion_anual = []
+
+        # Iteramos desde el año 1 hasta el último año
+        for anio_poliza in range(1, anios + 1):
+            # Buscamos la fila correspondiente al año de póliza actual
+            fila = next(
+                (
+                    item
+                    for item in matriz_devolucion
+                    if item["año_poliza"] == anio_poliza
+                ),
+                None,
+            )
+
+            if not fila:
+                porcentaje_devolucion_anual.append(0)
+                continue
+
+            plazo_primas = fila.get("plazo_pago_primas", {})
+            porcentaje = plazo_primas.get(str(periodo_vigencia), 0.0) / 100
+
+            porcentaje_devolucion_anual.append(porcentaje)
+
+        return porcentaje_devolucion_anual
