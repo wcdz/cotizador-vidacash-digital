@@ -202,7 +202,7 @@ class ItpCobertura:
             )
 
             # Calcular expuestos al mes
-            expuestos_mes, gastos = calculo_actuarial_service.execute()
+            vna_resultado = calculo_actuarial_service.execute()
 
             # Aquí se pueden agregar más cálculos actuariales en el futuro
             # reserva_matematica = self._calcular_reserva_matematica()
@@ -210,8 +210,7 @@ class ItpCobertura:
             # etc...
 
             resultados_actuariales = {
-                "expuestos_mes": expuestos_mes,
-                "gastos": gastos,
+                "vna_resultado": vna_resultado,
                 # "reserva_matematica": reserva_matematica,
                 # "prima_pura": prima_pura,
             }
