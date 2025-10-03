@@ -9,6 +9,7 @@ from src.models.services.parametros_calculados_service import (
     ParametrosCalculadosService,
 )
 from src.models.services.calculo_actuarial_service import CalculoActuarialService
+from src.models.services.goal_seek_service import GoalSeekService
 from src.common.producto import Producto
 from src.common.frecuencia_pago import FrecuenciaPago
 
@@ -190,3 +191,85 @@ class FallecimientoCobertura:
             print(f"Error en cálculos actuariales para FALLECIMIENTO: {e}")
             print(f"Tipo de error: {type(e).__name__}")
             raise Exception(f"Error en cálculos actuariales FALLECIMIENTO: {e}") from e
+
+    def calculo_actuarial_con_goal_seek(
+        self,
+        parametros_entrada: Dict[str, Any],
+        parametros_almacenados: Dict[str, Any],
+        parametros_calculados: Dict[str, Any],
+        ejecutar_goal_seek: bool = True,
+    ) -> Dict[str, Any]:
+        """
+        Ejecuta cálculos actuariales con opción de Goal Seek para optimizar prima_asignada
+
+        Args:
+            parametros_entrada: Parámetros de entrada del usuario
+            parametros_almacenados: Parámetros almacenados de la cobertura
+            parametros_calculados: Parámetros calculados
+            ejecutar_goal_seek: Si ejecutar Goal Seek para optimizar prima
+
+        Returns:
+            Diccionario con resultados actuariales y optimización
+        """
+        try:
+            resultado_goal_seek = None
+            prima_optima = None
+            
+            if ejecutar_goal_seek:
+                print(f"\n🎯 Ejecutando Goal Seek para FALLECIMIENTO...")
+                
+                # Crear parámetros específicos para esta cobertura
+                parametros_entrada_cobertura = parametros_entrada.copy()
+                parametros_entrada_cobertura["coberturas"] = {"fallecimiento": True}
+                
+                # Ejecutar Goal Seek
+                goal_seek_service = GoalSeekService()
+                resultado_goal_seek = goal_seek_service.execute(
+                    parametros_entrada_cobertura,
+                    parametros_almacenados,
+                    parametros_calculados
+                )
+                
+                # Extraer prima óptima si el Goal Seek fue exitoso
+                if (resultado_goal_seek.get("coberturas_optimizadas") and 
+                    "fallecimiento" in resultado_goal_seek["coberturas_optimizadas"]):
+                    
+                    cobertura_resultado = resultado_goal_seek["coberturas_optimizadas"]["fallecimiento"]
+                    prima_optima = cobertura_resultado.get("prima_asignada_optima")
+                    
+                    if prima_optima is not None:
+                        # Actualizar la prima en los parámetros almacenados
+                        if "fallecimiento" in parametros_almacenados.get("coberturas", {}):
+                            parametros_almacenados["coberturas"]["fallecimiento"]["prima_asignada"] = prima_optima
+                            
+                            print(f"✅ FALLECIMIENTO optimizada:")
+                            print(f"   Prima óptima: {prima_optima:.6f}")
+                            print(f"   VNA resultante: {cobertura_resultado.get('vna_resultado', 0):.12f}")
+                            print(f"   Convergió: {cobertura_resultado.get('convergio', False)}")
+                            print(f"   Iteraciones: {cobertura_resultado.get('iteraciones', 0)}")
+            
+            # Ejecutar cálculo actuarial normal con la prima (optimizada o original)
+            resultados_actuariales = self.calculo_actuarial(
+                parametros_entrada, parametros_almacenados, parametros_calculados
+            )
+            
+            # Agregar información del Goal Seek al resultado
+            if resultado_goal_seek:
+                resultados_actuariales["goal_seek"] = {
+                    "ejecutado": True,
+                    "prima_optima": prima_optima,
+                    "resultado": resultado_goal_seek
+                }
+            else:
+                resultados_actuariales["goal_seek"] = {
+                    "ejecutado": False,
+                    "prima_optima": None,
+                    "resultado": None
+                }
+            
+            return resultados_actuariales
+            
+        except Exception as e:
+            print(f"Error en cálculo actuarial con Goal Seek para FALLECIMIENTO: {e}")
+            print(f"Tipo de error: {type(e).__name__}")
+            raise Exception(f"Error en cálculo actuarial con Goal Seek FALLECIMIENTO: {e}") from e

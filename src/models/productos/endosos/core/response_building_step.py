@@ -2,7 +2,7 @@
 Módulo para construir la respuesta de cotización de endosos
 """
 
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from src.common.frecuencia_pago import FrecuenciaPago
 from src.models.productos.endosos.core.parameter_loading_step import ParameterLoadingStep
 
@@ -77,7 +77,7 @@ def build_endosos_response(
     parametros_entrada: Dict[str, Any],
     parametros_almacenados: Dict[str, Any],
     parametros_calculados: Dict[str, Any],
-    endosos: Dict[str, Any],
+    endosos: Optional[Dict[str, Any]],
 ) -> Dict[str, Any]:
     """
     Construye la respuesta completa de cotización para el producto ENDOSOS
