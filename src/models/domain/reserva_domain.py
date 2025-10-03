@@ -1,4 +1,5 @@
 from src.utils.anios_meses import anios_meses
+from typing import List
 
 
 class ReservaDomain:
@@ -120,3 +121,8 @@ class ReservaDomain:
             porcentaje_devolucion_anual.append(porcentaje)
 
         return porcentaje_devolucion_anual
+
+    def calcular_rescate_ajuste_devolucion(
+        self, caducados: List[float], rescates: List[float]
+    ):
+        return [rescate * caducado for rescate, caducado in zip(rescates, caducados)]

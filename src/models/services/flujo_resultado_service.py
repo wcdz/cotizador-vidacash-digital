@@ -2,6 +2,7 @@ from src.models.domain.flujo_resultado_domain import FlujoResultado
 from src.common.producto import Producto
 from src.infrastructure.repositories import get_repos
 from typing import List
+from src.models.services.reserva_service import ReservaService
 
 
 class FlujoResultadoService:
@@ -13,8 +14,19 @@ class FlujoResultadoService:
         suma_asegurada: float,
         edad_actuarial: int,
         periodo_vigencia: int,
+        prima: float,
+        fraccionamiento_primas: float,
+        porcentaje_devolucion: float,
     ):
         self.flujo_resultado = FlujoResultado()
+        self.reserva_service = ReservaService(
+            producto=producto,
+            cobertura=cobertura,
+            periodo_vigencia=periodo_vigencia,
+            prima=prima,
+            fraccionamiento_primas=fraccionamiento_primas,
+            porcentaje_devolucion=porcentaje_devolucion,
+        )
         self.producto = producto
         self.cobertura = cobertura
         self.suma_asegurada = suma_asegurada
@@ -54,3 +66,9 @@ class FlujoResultadoService:
             )
         else:
             return 0
+
+    def calcular_rescate(self, caducados: List[float], rescates: List[float]):
+        rescate_ajuste_devolucion = (
+            self.reserva_service.calcular_rescate_ajuste_devolucion(caducados, rescates)
+        )
+        return [-valor for valor in rescate_ajuste_devolucion]

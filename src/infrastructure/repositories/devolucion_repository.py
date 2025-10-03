@@ -51,14 +51,19 @@ class JsonDevolucionRepository(DevolucionRepository):
     def _get_devolucion_path(self, producto: str, cobertura: Optional[str] = None) -> Path:
         """Construye la ruta del archivo de devolución para un producto específico y opcionalmente cobertura"""
         if cobertura:
-            # Ruta para coberturas: assets/coberturas_adicionales_producto/endosos/itp/devolucion.json
-            return (
-                self.base_path
-                / "coberturas_adicionales_producto"
-                / producto.lower()
-                / cobertura.lower()
-                / "devolucion.json"
-            )
+            # Si base_path ya incluye la ruta completa hasta la cobertura, solo agregar el nombre del archivo
+            if "coberturas" in str(self.base_path):
+                return self.base_path / "devolucion.json"
+            else:
+                # Ruta para coberturas: assets/productos/endosos/coberturas/fallecimiento/devolucion.json
+                return (
+                    self.base_path
+                    / "productos"
+                    / producto.lower()
+                    / "coberturas"
+                    / cobertura.lower()
+                    / "devolucion.json"
+                )
         else:
             # Ruta normal: assets/rumbo/devolucion.json
             return self.base_path / producto.lower() / "devolucion.json"
