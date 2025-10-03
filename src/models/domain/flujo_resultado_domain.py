@@ -109,3 +109,91 @@ class FlujoResultado:
             comisiones.append(comision_mes)
 
         return comisiones
+
+    def calcular_variacion_reserva(
+        self, varianza_reserva: List[float], varianza_moce: List[float]
+    ):
+        variacion_reserva = [
+            varianza_reserva[i] + varianza_moce[i] for i in range(len(varianza_reserva))
+        ]
+
+        variacion_reserva[-1] = +abs(variacion_reserva[-1])
+
+        return variacion_reserva
+
+    def calcular_utilidad_pre_pi_ms(
+        self,
+        primas_recurrentes: List[float],
+        comision: List[float],
+        gastos_mantenimiento: List[float],
+        gastos_adquisicion: float,
+        siniestros: List[float],
+        rescate_ajuste_devolucion: List[float],
+        variacion_reserva: List[float],
+    ):
+        utilidad_pre_pi_ms = []
+
+        for i in range(len(primas_recurrentes)):
+            if i == 0:
+                # Primer mes: incluir gastos de adquisición
+                utilidad = (
+                    primas_recurrentes[i]
+                    + comision[i]
+                    + gastos_adquisicion
+                    + gastos_mantenimiento[i]
+                    + siniestros[i]
+                    + rescate_ajuste_devolucion[i]
+                    + variacion_reserva[i]
+                )
+            else:
+                # Meses siguientes: sin gastos de adquisición
+                utilidad = (
+                    primas_recurrentes[i]
+                    + comision[i]
+                    + gastos_mantenimiento[i]
+                    + siniestros[i]
+                    + rescate_ajuste_devolucion[i]
+                    + variacion_reserva[i]
+                )
+
+            utilidad_pre_pi_ms.append(utilidad)
+
+        utilidad_pre_pi_ms.append(variacion_reserva[-1])
+
+        return utilidad_pre_pi_ms
+
+    def calcular_IR(self, utilidad_pre_pi_ms: List[float], impuesto_renta: float):
+        return [utilidad * impuesto_renta for utilidad in utilidad_pre_pi_ms]
+
+    def calcular_flujo_resultado(
+        self,
+        utilidad_pre_pi_ms: List[float],
+        variacion_margen_solvencia: List[float],
+        IR: List[float],
+        producto_inversion: List[float],
+    ):
+        return [
+            utilidad_pre_pi_ms[i]
+            + (
+                abs(variacion_margen_solvencia[i])
+                if i == len(utilidad_pre_pi_ms) - 1
+                else variacion_margen_solvencia[i]
+            )
+            + IR[i]
+            + (producto_inversion[i] if i < len(producto_inversion) else 0.0)
+            for i in range(len(utilidad_pre_pi_ms))
+        ]
+
+    def calcular_vna_resultado(
+        self, flujo_resultado: List[float], tasa_costo_capital_mes: float
+    ):
+        def calcular_vna_estilo_excel(flujo: list[float], tasa: float) -> float:
+            # Replica EXACTO la función VNA de Excel:
+            # Descuenta todos los flujos, incluyendo el primero
+            return sum(cf / (1 + tasa) ** (t + 1) for t, cf in enumerate(flujo))
+
+        vna_resultado = calcular_vna_estilo_excel(
+            flujo_resultado, tasa_costo_capital_mes
+        )
+
+        return vna_resultado

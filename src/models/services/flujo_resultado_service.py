@@ -102,3 +102,59 @@ class FlujoResultadoService:
             costo_mensual_asistencia_funeraria,
             comision,
         )
+
+    def calcular_variacion_reserva(
+        self, varianza_reserva: List[float], varianza_moce: List[float]
+    ):
+        return self.flujo_resultado.calcular_variacion_reserva(
+            varianza_reserva, varianza_moce
+        )
+
+    def calcular_utilidad_pre_pi_ms(
+        self,
+        primas_recurrentes: List[float],
+        comision: List[float],
+        gastos_mantenimiento: List[float],
+        gastos_adquisicion: List[float],
+        siniestros: List[float],
+        rescate_ajuste_devolucion: List[float],
+        variacion_reserva: List[float],
+    ):
+        return self.flujo_resultado.calcular_utilidad_pre_pi_ms(
+            primas_recurrentes,
+            comision,
+            gastos_mantenimiento,
+            gastos_adquisicion,
+            siniestros,
+            rescate_ajuste_devolucion,
+            variacion_reserva,
+        )
+
+    def calcular_variacion_margen_solvencia(
+        self, varianza_margen_solvencia: List[float]
+    ):
+        return [-valor for valor in varianza_margen_solvencia]
+
+    def calcular_IR(self, utilidad_pre_pi_ms: List[float], impuesto_renta: float):
+        return self.flujo_resultado.calcular_IR(utilidad_pre_pi_ms, impuesto_renta)
+
+    def calcular_producto_inversion(self, ingreso_total_inversiones: List[float]):
+        return ingreso_total_inversiones
+
+    def calcular_flujo_resultado(
+        self,
+        utilidad_pre_pi_ms: List[float],
+        variacion_margen_solvencia: List[float],
+        IR: List[float],
+        producto_inversion: List[float],
+    ):
+        return self.flujo_resultado.calcular_flujo_resultado(
+            utilidad_pre_pi_ms, variacion_margen_solvencia, IR, producto_inversion
+        )
+
+    def calcular_vna_resultado(
+        self, flujo_resultado: List[float], tasa_costo_capital_mes: float
+    ):
+        return self.flujo_resultado.calcular_vna_resultado(
+            flujo_resultado, tasa_costo_capital_mes
+        )
