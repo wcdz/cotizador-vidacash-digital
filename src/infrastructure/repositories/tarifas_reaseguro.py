@@ -52,14 +52,19 @@ class JsonTarifasReaseguroRepository(TarifasReaseguroRepository):
 
     def _get_tarifas_path(self, producto: str, cobertura: str) -> Path:
         """Obtiene la ruta al archivo de tarifas de reaseguro para un producto y cobertura específica"""
-        # Ruta: assets/coberturas_adicionales_producto/endosos/itp/tarifas_reaseguro.json
-        return (
-            self.base_path
-            / "coberturas_adicionales_producto"
-            / producto.lower()
-            / cobertura.lower()
-            / "tarifas_reaseguro.json"
-        )
+        # Si base_path ya incluye la ruta completa hasta la cobertura, solo agregar el nombre del archivo
+        if "coberturas" in str(self.base_path):
+            return self.base_path / "tarifas_reaseguro.json"
+        else:
+            # Ruta: assets/productos/endosos/coberturas/itp/tarifas_reaseguro.json
+            return (
+                self.base_path
+                / "productos"
+                / producto.lower()
+                / "coberturas"
+                / cobertura.lower()
+                / "tarifas_reaseguro.json"
+            )
 
     def _cargar_tarifas(self, producto: str, cobertura: str) -> Dict[str, Any]:
         """

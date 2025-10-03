@@ -25,7 +25,6 @@ class GastosService:
         periodo_vigencia: float,
     ):
         self.gastos_domain = GastosDomain()
-        self.flujo_resultado_service = FlujoResultadoService()
         self.periodo_pago_primas = periodo_pago_primas
         self.frecuencia_pago_primas = frecuencia_pago_primas
         self.prima = prima
