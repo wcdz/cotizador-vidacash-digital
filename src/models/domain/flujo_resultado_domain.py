@@ -35,7 +35,7 @@ class FlujoResultado:
     def calcular_siniestros_fallecimiento(
         self, fallecidos: List[float], suma_asegurada: float
     ):
-        return [-(suma_asegurada * fallecido) for fallecido in fallecidos]
+        return [(suma_asegurada * fallecido) for fallecido in fallecidos]
 
     def calcular_siniestros_itp(
         self,
@@ -61,6 +61,6 @@ class FlujoResultado:
                 else vivo_inicio * siniestros_ma_mensual / 1000
             )
 
-            siniestros.append(-suma_asegurada * factor_siniestro)
+            siniestros.append(suma_asegurada * factor_siniestro)
 
         return siniestros
