@@ -51,19 +51,23 @@ class FlujoResultadoService:
 
     def calcular_siniestros(self, fallecidos: List[float], vivos_inicio: List[float]):
         if self.cobertura == "fallecimiento":
-            return self.flujo_resultado.calcular_siniestros_fallecimiento(
-                fallecidos, self.suma_asegurada
+            siniestros_fallecimiento = (
+                self.flujo_resultado.calcular_siniestros_fallecimiento(
+                    fallecidos, self.suma_asegurada
+                )
             )
+            return [-valor for valor in siniestros_fallecimiento]
         elif self.cobertura == "itp":
             repos = get_repos(producto=self.producto.value, cobertura=self.cobertura)
             tarifas_reaseguro = repos["tarifas_reaseguro"].get_tarifas_reaseguro()
-            return self.flujo_resultado.calcular_siniestros_itp(
+            siniestros_itp = self.flujo_resultado.calcular_siniestros_itp(
                 vivos_inicio,
                 self.suma_asegurada,
                 self.edad_actuarial,
                 self.periodo_vigencia,
                 tarifas_reaseguro,
             )
+            return [-valor for valor in siniestros_itp]
         else:
             return 0
 
