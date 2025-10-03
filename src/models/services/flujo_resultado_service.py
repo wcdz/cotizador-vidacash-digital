@@ -84,3 +84,21 @@ class FlujoResultadoService:
 
     def calcular_gastos_adquisicion(self, gasto_adquisicion: float):
         return self.flujo_resultado.calcular_gastos_adquisicion(gasto_adquisicion)
+
+    def calcular_comision(
+        self,
+        primas_recurrentes: List[float],
+        vivos_inicio: List[float],
+        frecuencia_pago_primas: str,
+        tiene_asistencia: bool,
+        costo_mensual_asistencia_funeraria: float,
+        comision: float,
+    ):
+        return self.flujo_resultado.calcular_comision(
+            primas_recurrentes,
+            vivos_inicio,
+            frecuencia_pago_primas,
+            tiene_asistencia,
+            costo_mensual_asistencia_funeraria,
+            comision,
+        )

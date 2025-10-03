@@ -70,3 +70,42 @@ class FlujoResultado:
 
     def calcular_gastos_adquisicion(self, gasto_adquisicion: float):
         return -gasto_adquisicion
+
+    def calcular_comision(
+        self,
+        primas_recurrentes: List[float],
+        vivos_inicio: List[float],
+        frecuencia_pago_primas: str,
+        tiene_asistencia: bool,
+        costo_mensual_asistencia_funeraria: float,
+        comision: float,
+    ):
+        comisiones = []
+
+        for idx, prima in enumerate(primas_recurrentes):
+            vivo_inicio = 0
+            if idx < len(vivos_inicio):
+                vivo_inicio = vivos_inicio[idx]
+
+            mes_poliza = idx + 1
+
+            frecuencia_meses_valor = frecuencia_meses(frecuencia_pago_primas)
+            # calcular validador pago primas mes a mes
+            if ((mes_poliza - 1) % frecuencia_meses_valor) == 0:
+                validador_pago_primas = 1
+            else:
+                validador_pago_primas = 0
+
+            ajuste_asistencia = 0
+            if tiene_asistencia:
+                ajuste_asistencia = (
+                    validador_pago_primas
+                    * frecuencia_meses_valor  # Usar el valor convertido a número
+                    * costo_mensual_asistencia_funeraria
+                    * vivo_inicio
+                )
+
+            comision_mes = -(prima - ajuste_asistencia) * comision
+            comisiones.append(comision_mes)
+
+        return comisiones

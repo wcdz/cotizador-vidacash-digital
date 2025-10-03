@@ -44,3 +44,21 @@ class ReservaService:
         self, caducados: List[float], rescates: List[float]
     ):
         return self.reserva.calcular_rescate_ajuste_devolucion(caducados, rescates)
+
+    def calcular_flujo_pasivo(
+        self,
+        primas_recurrentes: List[float],
+        siniestros: List[float],
+        rescate_ajuste_devolucion: List[float],
+        gastos_mantenimiento: List[float],
+        gastos_adquisicion: List[float],
+        comision: List[float],
+    ):
+        return self.reserva.calcular_flujo_pasivo(
+            primas_recurrentes,
+            siniestros,
+            rescate_ajuste_devolucion,
+            gastos_mantenimiento,
+            gastos_adquisicion,
+            comision,
+        )

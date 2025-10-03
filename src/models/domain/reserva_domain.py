@@ -126,3 +126,33 @@ class ReservaDomain:
         self, caducados: List[float], rescates: List[float]
     ):
         return [rescate * caducado for rescate, caducado in zip(rescates, caducados)]
+
+    def calcular_flujo_pasivo(
+        self,
+        primas_recurrentes: List[float],
+        siniestros: List[float],
+        rescate_ajuste_devolucion: List[float],
+        gastos_mantenimiento: List[float],
+        gastos_adquisicion: List[float],
+        comision: List[float],
+    ):
+        flujo_pasivo = []
+        for i, (siniestro, rescate, mantenimiento, comision, prima) in enumerate(
+            zip(
+                siniestros,
+                rescate_ajuste_devolucion,
+                gastos_mantenimiento,
+                comision,
+                primas_recurrentes,
+            )
+        ):
+            adquisicion = gastos_adquisicion if i == 0 else 0.0
+            flujo = (
+                (-siniestro)
+                + (-rescate)
+                + (-mantenimiento)
+                + (-comision)
+                + (-adquisicion)
+            ) - prima
+            flujo_pasivo.append(flujo)
+        return flujo_pasivo
