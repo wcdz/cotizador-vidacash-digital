@@ -76,3 +76,11 @@ class FlujoResultadoService:
             self.reserva_service.calcular_rescate_ajuste_devolucion(caducados, rescates)
         )
         return [-valor for valor in rescate_ajuste_devolucion]
+
+    def calcular_gastos_mantenimiento(self, gastos_mantenimiento_total: List[float]):
+        return self.flujo_resultado.calcular_gastos_mantenimiento(
+            gastos_mantenimiento_total
+        )
+
+    def calcular_gastos_adquisicion(self, gasto_adquisicion: float):
+        return self.flujo_resultado.calcular_gastos_adquisicion(gasto_adquisicion)

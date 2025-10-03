@@ -64,3 +64,9 @@ class FlujoResultado:
             siniestros.append(suma_asegurada * factor_siniestro)
 
         return siniestros
+
+    def calcular_gastos_mantenimiento(self, gastos_mantenimiento_total: List[float]):
+        return [-valor for valor in gastos_mantenimiento_total]
+
+    def calcular_gastos_adquisicion(self, gasto_adquisicion: float):
+        return -gasto_adquisicion
