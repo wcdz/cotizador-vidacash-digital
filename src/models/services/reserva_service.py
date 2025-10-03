@@ -62,3 +62,39 @@ class ReservaService:
             gastos_adquisicion,
             comision,
         )
+
+    def calcular_saldo_reserva(
+        self,
+        vivos_inicio: List[float],
+        rescate: List[float],
+        flujo_pasivo: List[float],
+        tasa_interes_mensual: float,
+    ):
+        return self.reserva.calcular_saldo_reserva(
+            vivos_inicio, rescate, flujo_pasivo, tasa_interes_mensual
+        )
+
+    def calcular_moce(
+        self,
+        tasa_costo_capital_mensual: float,
+        tasa_interes_mensual: float,
+        margen_solvencia: float,
+        saldo_reserva: List[float],
+    ):
+        return self.reserva.calcular_moce(
+            tasa_costo_capital_mensual,
+            tasa_interes_mensual,
+            margen_solvencia,
+            saldo_reserva,
+        )
+
+    def calcular_moce_saldo_reserva(
+        self, saldo_reserva: List[float], moce: List[float]
+    ):
+        return self.reserva.calcular_moce_saldo_reserva(saldo_reserva, moce)
+    
+    def calcular_varianza_moce(self, moce: List[float]):
+        return self.reserva.calcular_varianza_moce(moce)
+    
+    def calcular_varianza_reserva(self, saldo_reserva: List[float]):
+        return self.reserva.calcular_varianza_reserva(saldo_reserva)

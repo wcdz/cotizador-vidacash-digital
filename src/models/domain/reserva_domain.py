@@ -1,5 +1,7 @@
 from src.utils.anios_meses import anios_meses
 from typing import List
+import numpy as np
+from src.helpers.margen_reserva import margen_reserva
 
 
 class ReservaDomain:
@@ -156,3 +158,91 @@ class ReservaDomain:
             ) - prima
             flujo_pasivo.append(flujo)
         return flujo_pasivo
+
+    def vna_excel(self, rate: float, cashflows: List[float]) -> float:
+        """
+        Replica EXACTO la función VNA de Excel:
+        - Descuenta a partir del primer flujo como (1+r)^1, no como np.npv
+        """
+        return sum(cf / (1 + rate) ** (t + 1) for t, cf in enumerate(cashflows))
+
+    def calcular_saldo_reserva(
+        self,
+        vivos_inicio: List[float],
+        rescate: List[float],
+        flujo_pasivo: List[float],
+        tasa_interes_mensual: float,
+    ):
+        # print(vivos_inicio) # OK
+        # print(rescate) # OK -> Diferencia al 14vo decimal
+        # print(flujo_pasivo) # OK
+        # print(tasa_interes_mensual) # OK
+
+        resultados = []
+        n = len(flujo_pasivo)
+
+        for i in range(n):
+            # VNA Excel desde el flujo siguiente (i+1 en adelante)
+            vna = self.vna_excel(tasa_interes_mensual, flujo_pasivo[i + 1 :])
+
+            # parte izquierda (flujo actual + VNA)
+            valor = flujo_pasivo[i] + vna
+            if valor < 0:
+                valor = 0
+
+            # parte derecha
+            comparador = rescate[i] * vivos_inicio[i]
+
+            resultados.append(max(valor, comparador))
+
+        return resultados
+
+    def calcular_moce(
+        self,
+        tasa_costo_capital_mensual: float,
+        tasa_interes_mensual: float,
+        margen_solvencia: float,
+        saldo_reserva: List[float],
+    ):
+
+        _margen_reserva = margen_reserva(saldo_reserva, margen_solvencia)
+
+        if not _margen_reserva:
+            return []
+
+        resultados_moce = []
+
+        for i in range(len(_margen_reserva)):
+            flujo_inicial = _margen_reserva[i]
+            flujos_futuros = _margen_reserva[i + 1 :]  # del siguiente en adelante
+
+            vna = sum(
+                flujo / ((1 + tasa_interes_mensual) ** j)
+                for j, flujo in enumerate(flujos_futuros, start=1)
+            )
+
+            moce = tasa_costo_capital_mensual * (vna + flujo_inicial)
+            resultados_moce.append(moce)
+
+        return resultados_moce
+
+    def calcular_moce_saldo_reserva(
+        self, saldo_reserva: List[float], moce: List[float]
+    ):
+        return [saldo + moce for saldo, moce in zip(saldo_reserva, moce)]
+
+    def calcular_varianza_moce(self, moce: List[float]):
+        variaciones = [-moce[0]] + [
+            -(curr - prev) for prev, curr in zip(moce, moce[1:])
+        ]
+
+        variaciones.append(moce[-1])  # Último elemento positivo
+        return variaciones
+
+    def calcular_varianza_reserva(self, saldo_reserva: List[float]):
+        variaciones = [-saldo_reserva[0]] + [
+            -(curr - prev) for prev, curr in zip(saldo_reserva, saldo_reserva[1:])
+        ]
+        variaciones.append(saldo_reserva[-1])  # Último elemento positivo
+
+        return variaciones
