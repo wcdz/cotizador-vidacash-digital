@@ -84,17 +84,31 @@ class EndososOrchestrator:
                 parametros_entrada, parametros_almacenados
             )
 
-            # 4. Calcular datos específicos de endosos
-            endosos_data = self._calcular_endosos(
+            # 4. Calcular datos específicos de endosos (mantener para pruebas)
+            """calcular_endosos = self._calcular_endosos(
+                parametros_entrada, parametros_almacenados, parametros_calculados
+            )"""
+
+            # 5. Ejecutar cálculos actuariales con Goal Seek por cobertura
+            calcular_goalseek = self._calcular_goalseek(
                 parametros_entrada, parametros_almacenados, parametros_calculados
             )
 
-            # 5. Construir respuesta final
+            calcular_tabla_devolucion = self._calcular_tabla_devolucion(
+                parametros_entrada
+            )
+
+            # 6. Preparar respuesta
+            endosos = self._preparar_respuesta(
+                calcular_goalseek, parametros_entrada, calcular_tabla_devolucion
+            )
+
+            # 6. Construir respuesta final
             response = build_endosos_response(
                 parametros_entrada=parametros_entrada,
                 parametros_almacenados=parametros_almacenados,
                 parametros_calculados=parametros_calculados,
-                endosos=endosos_data,
+                endosos=endosos,
             )
 
             return response
@@ -325,6 +339,8 @@ class EndososOrchestrator:
             )
 
         # Ejecutar cálculos actuariales usando instancias independientes de cada cobertura
+        resultados_actuariales = {}
+
         if "fallecimiento" in coberturas:
             fallecimiento_cobertura = FallecimientoCobertura()
             resultados_fallecimiento = fallecimiento_cobertura.calculo_actuarial(
@@ -332,14 +348,12 @@ class EndososOrchestrator:
             )
             # print(f"Resultados actuariales FALLECIMIENTO: {resultados_fallecimiento}")
 
-        """
         if "itp" in coberturas:
             itp_cobertura = ItpCobertura()
             resultados_itp = itp_cobertura.calculo_actuarial(
                 parametros_entrada, parametros_almacenados, parametros_calculados
             )
-            print(f"Resultados actuariales ITP: {resultados_itp}")
-        """
+            # print(f"Resultados actuariales ITP: {resultados_itp}")
 
         endosos_data = {
             "coberturas": {},
@@ -366,6 +380,194 @@ class EndososOrchestrator:
             }
 
         return endosos_data
+
+    def _calcular_tabla_devolucion(
+        self,
+        parametros_entrada: Dict[str, Any],
+    ) -> list:
+        """
+        Calcula la tabla de devoluciones usando el servicio de parámetros calculados
+        """
+        periodo_vigencia = parametros_entrada["periodo_vigencia"]
+        porcentaje_devolucion = parametros_entrada["porcentaje_devolucion"]
+
+        return str(
+            self._parametros_calculados_service.calcular_tabla_devolucion_completa(
+                periodo_vigencia=periodo_vigencia,
+                porcentaje_devolucion=porcentaje_devolucion,
+                producto="endosos",
+                cobertura="fallecimiento",
+            )
+        )
+
+    def _calcular_goalseek(
+        self,
+        parametros_entrada: Dict[str, Any],
+        parametros_almacenados: Dict[str, Any],
+        parametros_calculados: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        """
+        Ejecuta cálculos actuariales con Goal Seek para todas las coberturas activas
+
+        Args:
+            parametros_entrada: Parámetros de entrada del usuario
+            parametros_almacenados: Parámetros almacenados
+            parametros_calculados: Parámetros calculados
+
+        Returns:
+            Diccionario con resultados de Goal Seek por cobertura
+        """
+        try:
+            # Obtener coberturas activas
+            coberturas_obj = parametros_entrada.get("coberturas", {})
+            if isinstance(coberturas_obj, dict):
+                coberturas = [k for k, v in coberturas_obj.items() if v]
+            else:
+                coberturas = coberturas_obj if isinstance(coberturas_obj, list) else []
+
+            # Ejecutar cálculos actuariales con Goal Seek para cada cobertura
+            resultados_por_cobertura = {}
+
+            if "fallecimiento" in coberturas:
+                print(f"\n🎯 Procesando FALLECIMIENTO con Goal Seek...")
+                fallecimiento_cobertura = FallecimientoCobertura()
+                resultados_fallecimiento = (
+                    fallecimiento_cobertura.calculo_actuarial_con_goal_seek(
+                        parametros_entrada,
+                        parametros_almacenados,
+                        parametros_calculados,
+                    )
+                )
+                resultados_por_cobertura["fallecimiento"] = resultados_fallecimiento
+
+            if "itp" in coberturas:
+                print(f"\n🎯 Procesando ITP con Goal Seek...")
+                itp_cobertura = ItpCobertura()
+                resultados_itp = itp_cobertura.calculo_actuarial_con_goal_seek(
+                    parametros_entrada, parametros_almacenados, parametros_calculados
+                )
+                resultados_por_cobertura["itp"] = resultados_itp
+
+            print(
+                f"\n✅ Total de coberturas procesadas: {len(resultados_por_cobertura)}"
+            )
+
+            return resultados_por_cobertura
+
+        except Exception as e:
+            print(f"Error en cálculo de Goal Seek: {e}")
+            return {}
+
+    def _preparar_respuesta(
+        self,
+        calcular_goalseek: Dict[str, Any],
+        parametros_entrada: Dict[str, Any],
+        tabla_devolucion: Any = None,
+    ) -> Dict[str, Any]:
+        """
+        Prepara la respuesta final usando los métodos preparar_respuesta de cada cobertura
+        """
+        try:
+            print(f"\n🔧 Preparando respuesta estructurada...")
+            print(f"Coberturas a procesar: {list(calcular_goalseek.keys())}")
+
+            primas_coberturas = {}
+
+            # Procesar cada cobertura que fue calculada
+            for cobertura, resultados in calcular_goalseek.items():
+                print(f"Procesando cobertura: {cobertura}")
+
+                if cobertura == "fallecimiento":
+                    fallecimiento_cobertura = FallecimientoCobertura()
+                    respuesta_estructurada = fallecimiento_cobertura.preparar_respuesta(
+                        resultados, parametros_entrada
+                    )
+                    primas_coberturas[cobertura] = respuesta_estructurada
+                    print(
+                        f"✅ Fallecimiento estructurado: {list(respuesta_estructurada.keys())}"
+                    )
+
+                elif cobertura == "itp":
+                    itp_cobertura = ItpCobertura()
+                    respuesta_estructurada = itp_cobertura.preparar_respuesta(
+                        resultados, parametros_entrada
+                    )
+                    primas_coberturas[cobertura] = respuesta_estructurada
+                    print(f"✅ ITP estructurado: {list(respuesta_estructurada.keys())}")
+
+                else:
+                    # Para primas_coberturas no reconocidas, usar la respuesta tal como viene
+                    primas_coberturas[cobertura] = resultados
+                    print(
+                        f"⚠️ Cobertura no reconocida {cobertura}, usando respuesta original"
+                    )
+
+            primas_cliente = self._calcular_primas_cliente(primas_coberturas)
+            # Estructurar la respuesta con coberturas anidadas
+            respuesta_final = {
+                "coberturas": primas_coberturas,
+                "primas_cliente": primas_cliente,
+            }
+
+            # Agregar tabla de devolución si está disponible
+            if tabla_devolucion is not None:
+                respuesta_final["tabla_devolucion"] = tabla_devolucion
+                print(f"✅ Tabla de devolución agregada: {tabla_devolucion}")
+
+            print(
+                f"🎉 Respuesta final preparada con {len(primas_coberturas)} coberturas"
+            )
+            return respuesta_final
+
+        except Exception as e:
+            print(f"❌ Error preparando respuesta: {e}")
+            print(f"Tipo de error: {type(e).__name__}")
+            import traceback
+
+            traceback.print_exc()
+            # En caso de error, retornar los resultados originales con estructura correcta
+            return {"coberturas": calcular_goalseek}
+
+    def _calcular_primas_cliente(self, primas_coberturas):
+        """
+        Suma los valores de cada clave entre todas las coberturas
+        """
+        try:
+            print(f"\n🧮 Calculando primas del cliente sumando coberturas...")
+
+            if not primas_coberturas:
+                return {}
+
+            # Obtener estructura de referencia de la primera cobertura
+            primera_cobertura = next(iter(primas_coberturas.values()))
+
+            primas_cliente = {}
+
+            # Procesar cada clave principal
+            for clave, estructura_referencia in primera_cobertura.items():
+                primas_cliente[clave] = {}
+
+                # Procesar cada subclave (mensual, trimestral, etc.)
+                for subclave in estructura_referencia.keys():
+                    suma_total = sum(
+                        cobertura_datos[clave][subclave]
+                        for cobertura_datos in primas_coberturas.values()
+                        if clave in cobertura_datos
+                        and subclave in cobertura_datos[clave]
+                    )
+
+                    primas_cliente[clave][subclave] = suma_total
+                    print(f"  {clave}.{subclave}: {suma_total}")
+
+            print(f"✅ Primas del cliente calculadas exitosamente")
+            return primas_cliente
+
+        except Exception as e:
+            print(f"❌ Error calculando primas del cliente: {e}")
+            import traceback
+
+            traceback.print_exc()
+            return {}
 
     def get_cobertura_info(self, cobertura: str) -> Dict[str, Any]:
         """
