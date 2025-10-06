@@ -10,6 +10,7 @@ class ParametrosCalculadosService:
     def __init__(self):
         self.parametros_calculados = ParametrosCalculados()
         self._factores_pago = None
+        self.repos = get_repos("endosos")
 
     def _cargar_factores_pago(self) -> dict:
         """Carga los factores de pago (cross) si no están cargados"""
@@ -230,3 +231,52 @@ class ParametrosCalculadosService:
 
     def calcular_factor_ajuste(self, producto: Producto) -> float:
         return self.parametros_calculados.calcular_factor_ajuste(producto)
+
+    def calcular_tabla_devolucion(
+        self, periodo_vigencia: int, porcentaje_devolucion: float, devolucion: list
+    ) -> list:
+        return self.parametros_calculados.calcular_tabla_devolucion(
+            periodo_vigencia, porcentaje_devolucion, devolucion
+        )
+    
+    def calcular_tabla_devolucion_completa(
+        self, periodo_vigencia: int, porcentaje_devolucion: float, producto: str, cobertura: str
+    ) -> list:
+        """Calcula la tabla de devolución cargando los datos y aplicando la fórmula"""
+        print(f"\n🔍 Calculando tabla de devolución...")
+        print(f"Periodo vigencia: {periodo_vigencia}")
+        print(f"Porcentaje devolución: {porcentaje_devolucion}")
+        
+        # Cargar datos de devolución
+        devolucion_data = self._cargar_datos_devolucion(producto, cobertura)
+        
+        if not devolucion_data:
+            print("⚠️ No se pudieron cargar los datos de devolución")
+            return [porcentaje_devolucion]
+        
+        print(f"✅ Datos de devolución cargados: {len(devolucion_data)} elementos")
+        
+        # Calcular tabla usando el método del dominio
+        resultado = self.calcular_tabla_devolucion(periodo_vigencia, porcentaje_devolucion, devolucion_data)
+        
+        print(f"📊 Resultado tabla devolución: {resultado}")
+        return resultado
+    
+    def _cargar_datos_devolucion(self, producto: str, cobertura: str) -> list:
+        """Carga los datos de devolución directamente desde el archivo"""
+        try:
+            import json
+            from pathlib import Path
+            
+            # Ruta directa al archivo de devolución
+            devolucion_path = Path(f"assets/productos/{producto}/coberturas/{cobertura}/devolucion.json")
+            
+            if devolucion_path.exists():
+                with open(devolucion_path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            else:
+                print(f"⚠️ Archivo de devolución no encontrado: {devolucion_path}")
+                return []
+        except Exception as e:
+            print(f"❌ Error cargando datos de devolución: {e}")
+            return []

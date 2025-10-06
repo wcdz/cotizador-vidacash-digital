@@ -2,10 +2,8 @@ from dataclasses import dataclass, field
 from src.common.constans import TASA_MENSUALIZACION, FACTOR_AJUSTE
 from src.helpers.tasa_interes_reserva import tasa_interes_reserva
 from src.common.frecuencia_pago import FrecuenciaPago
-from typing import Dict
-from typing import Optional, Union
+from typing import Dict, Any
 from src.common.producto import Producto
-import math
 
 
 class ParametrosCalculados:
@@ -122,3 +120,32 @@ class ParametrosCalculados:
     def calcular_factor_ajuste(self, producto: Producto) -> float:
         """Calcula el factor de ajuste según el tipo de producto"""
         return FACTOR_AJUSTE if producto == Producto.RUMBO else 0.0
+
+    def calcular_tabla_devolucion(
+        self, periodo_vigencia: int, porcentaje_devolucion: float, devolucion: list
+    ) -> list:
+        """Calcula la tabla de devoluciones"""
+        print(f"🔍 Debug tabla devolución:")
+        print(f"  - Periodo vigencia: {periodo_vigencia}")
+        print(f"  - Porcentaje devolución: {porcentaje_devolucion}")
+        print(f"  - Datos devolución: {len(devolucion)} elementos")
+        print(f"  - Slice a procesar: devolucion[:{periodo_vigencia - 1}]")
+        
+        if not devolucion:
+            print("⚠️ Lista de devolución vacía, devolviendo solo porcentaje")
+            return [porcentaje_devolucion]
+        
+        # Procesar elementos hasta periodo_vigencia - 1
+        elementos_procesados = []
+        for i, x in enumerate(devolucion[: periodo_vigencia - 1]):
+            plazo_pago = x.get("plazo_pago_primas", {})
+            valor_periodo = plazo_pago.get(str(periodo_vigencia), 0)
+            resultado = valor_periodo * (porcentaje_devolucion / 100)
+            elementos_procesados.append(resultado)
+            print(f"  - Elemento {i}: plazo_pago_primas[{periodo_vigencia}] = {valor_periodo}, resultado = {resultado}")
+        
+        # Agregar porcentaje_devolucion al final
+        resultado_final = elementos_procesados + [porcentaje_devolucion]
+        print(f"  - Resultado final: {resultado_final}")
+        
+        return resultado_final

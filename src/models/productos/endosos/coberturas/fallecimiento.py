@@ -11,7 +11,7 @@ from src.models.services.parametros_calculados_service import (
 from src.models.services.calculo_actuarial_service import CalculoActuarialService
 from src.models.services.goal_seek_service import GoalSeekService
 from src.common.producto import Producto
-from src.common.frecuencia_pago import FrecuenciaPago
+from src.utils.frecuencia_meses import frecuencia_meses
 
 
 class FallecimientoCobertura:
@@ -23,6 +23,9 @@ class FallecimientoCobertura:
         self.cobertura_adicional = False  # Referencia a ITP
         self.parametros = {}
         self.parametros_calculados_service = ParametrosCalculadosService()
+        self.repos = get_repos(self.producto, self.cobertura)
+        self.factores_pago_repo = self.repos["factores_pago"]
+        self.factores_pago = self.factores_pago_repo.get_factores_pago()
 
     def cargar_parametros(self) -> Dict[str, Any]:
         """
@@ -214,62 +217,150 @@ class FallecimientoCobertura:
         try:
             resultado_goal_seek = None
             prima_optima = None
-            
+
             if ejecutar_goal_seek:
                 print(f"\n🎯 Ejecutando Goal Seek para FALLECIMIENTO...")
-                
+
                 # Crear parámetros específicos para esta cobertura
                 parametros_entrada_cobertura = parametros_entrada.copy()
                 parametros_entrada_cobertura["coberturas"] = {"fallecimiento": True}
-                
+
                 # Ejecutar Goal Seek
                 goal_seek_service = GoalSeekService()
                 resultado_goal_seek = goal_seek_service.execute(
                     parametros_entrada_cobertura,
                     parametros_almacenados,
-                    parametros_calculados
+                    parametros_calculados,
                 )
-                
+
                 # Extraer prima óptima si el Goal Seek fue exitoso
-                if (resultado_goal_seek.get("coberturas_optimizadas") and 
-                    "fallecimiento" in resultado_goal_seek["coberturas_optimizadas"]):
-                    
-                    cobertura_resultado = resultado_goal_seek["coberturas_optimizadas"]["fallecimiento"]
+                if (
+                    resultado_goal_seek.get("coberturas_optimizadas")
+                    and "fallecimiento" in resultado_goal_seek["coberturas_optimizadas"]
+                ):
+
+                    cobertura_resultado = resultado_goal_seek["coberturas_optimizadas"][
+                        "fallecimiento"
+                    ]
                     prima_optima = cobertura_resultado.get("prima_asignada_optima")
-                    
+
                     if prima_optima is not None:
                         # Actualizar la prima en los parámetros almacenados
-                        if "fallecimiento" in parametros_almacenados.get("coberturas", {}):
-                            parametros_almacenados["coberturas"]["fallecimiento"]["prima_asignada"] = prima_optima
-                            
+                        if "fallecimiento" in parametros_almacenados.get(
+                            "coberturas", {}
+                        ):
+                            parametros_almacenados["coberturas"]["fallecimiento"][
+                                "prima_asignada"
+                            ] = prima_optima
+
                             print(f"✅ FALLECIMIENTO optimizada:")
                             print(f"   Prima óptima: {prima_optima:.6f}")
-                            print(f"   VNA resultante: {cobertura_resultado.get('vna_resultado', 0):.12f}")
-                            print(f"   Convergió: {cobertura_resultado.get('convergio', False)}")
-                            print(f"   Iteraciones: {cobertura_resultado.get('iteraciones', 0)}")
-            
+                            print(
+                                f"   VNA resultante: {cobertura_resultado.get('vna_resultado', 0):.12f}"
+                            )
+                            print(
+                                f"   Convergió: {cobertura_resultado.get('convergio', False)}"
+                            )
+                            print(
+                                f"   Iteraciones: {cobertura_resultado.get('iteraciones', 0)}"
+                            )
+
             # Ejecutar cálculo actuarial normal con la prima (optimizada o original)
             resultados_actuariales = self.calculo_actuarial(
                 parametros_entrada, parametros_almacenados, parametros_calculados
             )
-            
+
             # Agregar información del Goal Seek al resultado
             if resultado_goal_seek:
                 resultados_actuariales["goal_seek"] = {
                     "ejecutado": True,
                     "prima_optima": prima_optima,
-                    "resultado": resultado_goal_seek
+                    "resultado": resultado_goal_seek,
                 }
             else:
                 resultados_actuariales["goal_seek"] = {
                     "ejecutado": False,
                     "prima_optima": None,
-                    "resultado": None
+                    "resultado": None,
                 }
-            
+
             return resultados_actuariales
-            
+
         except Exception as e:
             print(f"Error en cálculo actuarial con Goal Seek para FALLECIMIENTO: {e}")
             print(f"Tipo de error: {type(e).__name__}")
-            raise Exception(f"Error en cálculo actuarial con Goal Seek FALLECIMIENTO: {e}") from e
+            raise Exception(
+                f"Error en cálculo actuarial con Goal Seek FALLECIMIENTO: {e}"
+            ) from e
+
+    def preparar_respuesta(
+        self, resultados_actuariales: Dict[str, Any], parametros_entrada: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """
+        Prepara la respuesta final
+        """
+        prima_optimizada = resultados_actuariales["goal_seek"]["prima_optima"]
+        vna_resultado = resultados_actuariales["vna_resultado"]
+        iteraciones = resultados_actuariales["goal_seek"]["resultado"][
+            "coberturas_optimizadas"
+        ]["fallecimiento"]["iteraciones"]
+        primas_frecuencializadas = self.calcular_primas_frecuencializadas(
+            prima_optimizada
+        )
+        suma_asegurada = parametros_entrada["suma_asegurada"]
+        periodo_vigencia = parametros_entrada["periodo_vigencia"]
+        porcentaje_devolucion = parametros_entrada["porcentaje_devolucion"]
+        tasas = self.calcular_tasas(primas_frecuencializadas, suma_asegurada)
+        devoluciones = self.calcular_devoluciones(tasas, suma_asegurada, porcentaje_devolucion, periodo_vigencia)
+        primas_anualizadas = self.calcular_primas_anualizadas(tasas, suma_asegurada)
+        return {
+            "cobertura_optimizada": {
+                "prima_optimizada": prima_optimizada,
+                "vna_resultado": vna_resultado,
+                "iteraciones": iteraciones,
+            },
+            "tasas": tasas,
+            "devoluciones": devoluciones,
+            "primas_anualizadas": primas_anualizadas,
+            "primas_frecuencializadas": primas_frecuencializadas,
+        }
+
+    def calcular_primas_frecuencializadas(self, prima_optimizada: float):
+        factor_pago_mensual = self.factores_pago["mensual"]
+        return {
+            k: (
+                prima_optimizada
+                if k == "mensual"
+                else prima_optimizada / factor_pago_mensual * v
+            )
+            for k, v in self.factores_pago.items()
+        }
+
+    def calcular_tasas(self, primas_frecuencializadas: dict, suma_asegurada: float):
+        return {
+            k: primas_frecuencializadas[k] / suma_asegurada
+            for k in self.factores_pago.keys()
+        }
+
+    def calcular_primas_anualizadas(
+        self,
+        tasas_frecuencia: dict,
+        suma_asegurada: float,
+    ):
+        return {
+            k: tasas_frecuencia.get(k, 0) * suma_asegurada / v
+            for k, v in self.factores_pago.items()
+        }
+
+    def calcular_devoluciones(
+        self,
+        tasas_frecuencia: dict,
+        suma_asegurada: float,
+        porcentaje_devolucion: float,
+        periodo_vigencia: int,
+    ):
+        factor = (porcentaje_devolucion / 100) * suma_asegurada * 12 * periodo_vigencia
+        return {
+            k: tasas_frecuencia.get(k, 0) * factor / frecuencia_meses(k.upper())
+            for k in self.factores_pago.keys()
+        }
