@@ -1,0 +1,66 @@
+{
+    "10": {
+        "duracion_tipo": 86,
+        "tasa_inversion": 5.50
+    },
+    "11": {
+        "duracion_tipo": 94,
+        "tasa_inversion": 5.50
+    },
+    "12": {
+        "duracion_tipo": 101,
+        "tasa_inversion": 5.50
+    },
+    "13": {
+        "duracion_tipo": 108,
+        "tasa_inversion": 5.50
+    },
+    "14": {
+        "duracion_tipo": 115,
+        "tasa_inversion": 5.50
+    },
+    "15": {
+        "duracion_tipo": 122,
+        "tasa_inversion": 5.50
+    },
+    "16": {
+        "duracion_tipo": 128,
+        "tasa_inversion": 5.50
+    },
+    "17": {
+        "duracion_tipo": 134,
+        "tasa_inversion": 5.50
+    },
+    "18": {
+        "duracion_tipo": 140,
+        "tasa_inversion": 5.50
+    },
+    "19": {
+        "duracion_tipo": 147,
+        "tasa_inversion": 5.50
+    },
+    "20": {
+        "duracion_tipo": 151,
+        "tasa_inversion": 5.50
+    },
+    "21": {
+        "duracion_tipo": 158,
+        "tasa_inversion": 5.50
+    },
+    "22": {
+        "duracion_tipo": 164,
+        "tasa_inversion": 5.50
+    },
+    "23": {
+        "duracion_tipo": 170,
+        "tasa_inversion": 5.50
+    },
+    "24": {
+        "duracion_tipo": 176,
+        "tasa_inversion": 5.50
+    },
+    "25": {
+        "duracion_tipo": 182,
+        "tasa_inversion": 5.50
+    }
+}
