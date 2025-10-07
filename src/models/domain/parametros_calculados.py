@@ -26,7 +26,7 @@ class ParametrosCalculados:
         """Calcula la TIR mensual"""
         exponente = (
             1 / 12
-            if producto == Producto.ENDOSOS and coberturas
+            if (producto == Producto.ENDOSOS and coberturas) or (producto == Producto.VIDA_CASH_PLUS and coberturas)
             else TASA_MENSUALIZACION
         )
         return (1 + moce) ** exponente - 1
@@ -51,6 +51,10 @@ class ParametrosCalculados:
             case (Producto.ENDOSOS, True):
                 return margen_solvencia * (1 + fondo_garantia)
             case (Producto.ENDOSOS, False):
+                return reserva_endosos
+            case (Producto.VIDA_CASH_PLUS, True):
+                return margen_solvencia * (1 + fondo_garantia)
+            case (Producto.VIDA_CASH_PLUS, False):
                 return reserva_endosos
             case _:
                 raise ValueError(f"Tipo de producto no válido: {producto}")
@@ -78,7 +82,7 @@ class ParametrosCalculados:
     ) -> float:
         """Calcula la tasa de interés mensual"""
         tasa_interes_anual = tasa_interes_anual / 100
-        if producto == Producto.ENDOSOS and coberturas:
+        if (producto == Producto.ENDOSOS and coberturas) or (producto == Producto.VIDA_CASH_PLUS and coberturas):
             return (1 + tasa_interes_anual) ** (1 / 12) - 1
         else:
             return (1 + tasa_interes_anual) ** (TASA_MENSUALIZACION) - 1

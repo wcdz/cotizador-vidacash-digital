@@ -7,10 +7,10 @@ from typing import Dict, Any
 
 class ParametrosCalculadosService:
 
-    def __init__(self):
+    def __init__(self, producto: str = "endosos"):
         self.parametros_calculados = ParametrosCalculados()
         self._factores_pago = None
-        self.repos = get_repos("endosos")
+        self.repos = get_repos(producto)
 
     def _cargar_factores_pago(self) -> dict:
         """Carga los factores de pago (cross) si no están cargados"""
@@ -73,6 +73,8 @@ class ParametrosCalculadosService:
         # Para endosos: fallecimiento = principal (False), itp = adicional (True)
         if producto == Producto.ENDOSOS:
             cobertura_adicional = cobertura == "itp"  # Solo ITP es adicional
+        elif producto == Producto.VIDA_CASH_PLUS:
+            cobertura_adicional = cobertura == "itp"  # Solo ITP es adicional (igual que ENDOSOS)
         else:
             cobertura_adicional = cobertura is not None
 
