@@ -10,6 +10,11 @@ from src.infrastructure.repositories import (
     get_repos,
 )
 from src.models.productos.endosos import cotizar_endosos, get_endosos_info
+from src.models.productos.vida_cash_plus import (
+    cotizar_vida_cash_plus,
+    get_vida_cash_plus_info,
+)
+from src.common.producto import Producto
 
 router = APIRouter(prefix="/api/v1/productos", tags=["cotizaciones"])
 
@@ -29,13 +34,58 @@ class RequestCotizacion(BaseModel):
 
 
 @router.get("/endosos/info")
-def get_info():
+def get_endosos_info_endpoint():
     """
     Endpoint para obtener información del producto endosos
     """
     try:
         info = get_endosos_info()
         return {"success": True, "data": info}
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error al obtener información: {str(e)}"
+        )
+
+
+@router.get("/vida-cash-plus/info")
+def get_vida_cash_plus_info_endpoint():
+    """
+    Endpoint para obtener información del producto vida cash plus
+    """
+    try:
+        info = get_vida_cash_plus_info()
+        return {"success": True, "data": info}
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error al obtener información: {str(e)}"
+        )
+
+
+@router.get("/info")
+def get_all_products_info():
+    """
+    Endpoint para obtener información de todos los productos disponibles
+    """
+    try:
+        productos_info = {
+            "productos_disponibles": [
+                {
+                    "codigo": Producto.ENDOSOS.value,
+                    "nombre": "Endosos",
+                    "descripcion": "Producto de seguros de endosos",
+                    "endpoint_info": "/api/v1/productos/endosos/info",
+                },
+                {
+                    "codigo": Producto.VIDA_CASH_PLUS.value,
+                    "nombre": "Vida Cash Plus",
+                    "descripcion": "Producto de seguros Vida Cash Plus",
+                    "endpoint_info": "/api/v1/productos/vida-cash-plus/info",
+                },
+            ],
+            "endpoint_cotizacion": "/api/v1/productos/cotizar",
+            "version": "1.0.0",
+        }
+        return {"success": True, "data": productos_info}
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Error al obtener información: {str(e)}"
@@ -52,9 +102,11 @@ def cotizar(request: RequestCotizacion):
         params = request.parametros
 
         # Validar producto
-        if producto != "ENDOSOS":
+        productos_soportados = [Producto.ENDOSOS.value, Producto.VIDA_CASH_PLUS.value]
+        if producto not in productos_soportados:
             raise HTTPException(
-                status_code=400, detail="Solo se soporta el producto ENDOSOS"
+                status_code=400,
+                detail=f"Producto no soportado. Productos disponibles: {', '.join(productos_soportados)}",
             )
 
         # Validar sexo
@@ -71,12 +123,19 @@ def cotizar(request: RequestCotizacion):
             "porcentaje_devolucion": params.porcentaje_devolucion,
         }
 
-        # Usar el orquestador de endosos para generar la respuesta completa
-        response_data = cotizar_endosos(request_data)
+        # Usar el orquestador correspondiente según el producto
+        if producto == Producto.ENDOSOS.value:
+            response_data = cotizar_endosos(request_data)
+        elif producto == Producto.VIDA_CASH_PLUS.value:
+            response_data = cotizar_vida_cash_plus(request_data)
+        else:
+            raise HTTPException(
+                status_code=400, detail=f"Producto '{producto}' no implementado"
+            )
 
         return {
             "success": True,
-            "message": "Cotización realizada exitosamente",
+            "message": f"Cotización de {producto} realizada exitosamente",
             "data": response_data,
         }
 
