@@ -83,6 +83,11 @@ class VidaCashPlusOrchestrator:
             parametros_calculados = self._calcular_parametros_calculados(
                 parametros_entrada, parametros_almacenados
             )
+            
+            # 3.1 Calcular datos específicos de vida cash plus (mantener para pruebas)
+            """calcular_vida_cash_plus = self._calcular_vida_cash_plus(
+                parametros_entrada, parametros_almacenados, parametros_calculados
+            )"""
 
             # 4. Ejecutar cálculos actuariales con Goal Seek por cobertura
             calcular_goalseek = self._calcular_goalseek(
@@ -279,6 +284,81 @@ class VidaCashPlusOrchestrator:
         except Exception as e:
             print(f"Error al cargar tasas de interés por cobertura: {e}")
             return {}
+
+    def _calcular_vida_cash_plus(
+        self,
+        parametros_entrada: Dict[str, Any],
+        parametros_almacenados: Dict[str, Any],
+        parametros_calculados: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        """
+        Calcula los datos específicos de vida cash plus
+
+        Args:
+            parametros_entrada: Parámetros de entrada
+            parametros_almacenados: Parámetros almacenados
+            parametros_calculados: Parámetros calculados
+
+        Returns:
+            Datos específicos de vida cash plus
+        """
+        # Obtener coberturas del nuevo formato
+        coberturas_obj = parametros_entrada.get("coberturas", {})
+
+        # Determinar coberturas activas
+        if isinstance(coberturas_obj, dict):
+            # Nuevo formato: {"itp": true, "fallecimiento": true}
+            coberturas = [k for k, v in coberturas_obj.items() if v]
+        else:
+            # Formato legacy: ["itp", "fallecimiento"]
+            coberturas = (
+                coberturas_obj
+                if isinstance(coberturas_obj, list)
+                else self._cargar_coberturas_disponibles()
+            )
+
+        # Ejecutar cálculos actuariales usando instancias independientes de cada cobertura
+        resultados_actuariales = {}
+
+        if "fallecimiento" in coberturas:
+            fallecimiento_cobertura = FallecimientoCobertura()
+            resultados_fallecimiento = fallecimiento_cobertura.calculo_actuarial(
+                parametros_entrada, parametros_almacenados, parametros_calculados
+            )
+            # print(f"Resultados actuariales FALLECIMIENTO: {resultados_fallecimiento}")
+
+        if "itp" in coberturas:
+            itp_cobertura = ItpCobertura()
+            resultados_itp = itp_cobertura.calculo_actuarial(
+                parametros_entrada, parametros_almacenados, parametros_calculados
+            )
+            # print(f"Resultados actuariales ITP: {resultados_itp}")
+
+        vida_cash_plus_data = {
+            "coberturas": {},
+            "tabla_devolucion": "",
+            "calculado_por": "VidaCashPlusOrchestrator",
+        }
+
+        # Ordenar coberturas según el orden específico
+        orden_coberturas = ["fallecimiento", "itp"]
+        coberturas_ordenadas = []
+        for cobertura in orden_coberturas:
+            if cobertura in coberturas:
+                coberturas_ordenadas.append(cobertura)
+        for cobertura in coberturas:
+            if cobertura not in coberturas_ordenadas:
+                coberturas_ordenadas.append(cobertura)
+
+        for cobertura in coberturas_ordenadas:
+            # Aquí se implementarían los cálculos específicos de vida cash plus por cobertura
+            # Por ahora, inicializamos con estructura vacía
+            vida_cash_plus_data["coberturas"][cobertura] = {
+                "calculado_por": "VidaCashPlusOrchestrator",
+                "cobertura": cobertura,
+            }
+
+        return vida_cash_plus_data
 
     def _calcular_tabla_devolucion(
         self,
