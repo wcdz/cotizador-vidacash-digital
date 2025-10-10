@@ -16,7 +16,9 @@ from src.models.domain.parametros_calculados import ParametrosCalculados
 from src.models.services.parametros_calculados_service import (
     ParametrosCalculadosService,
 )
-from src.models.productos.vida_cash_plus.coberturas.fallecimiento import FallecimientoCobertura
+from src.models.productos.vida_cash_plus.coberturas.fallecimiento import (
+    FallecimientoCobertura,
+)
 from src.models.productos.vida_cash_plus.coberturas.itp import ItpCobertura
 from src.common.producto import Producto
 from src.models.services.calculo_actuarial_service import CalculoActuarialService
@@ -32,7 +34,9 @@ class VidaCashPlusOrchestrator:
         self.producto = "vida_cash_plus"
         self._coberturas_disponibles = None
         self._parametros_calculados = ParametrosCalculados()
-        self._parametros_calculados_service = ParametrosCalculadosService("vida_cash_plus")
+        self._parametros_calculados_service = ParametrosCalculadosService(
+            "vida_cash_plus"
+        )
         self._cobertura_fallecimiento = FallecimientoCobertura()
         self._cobertura_itp = ItpCobertura()
 
@@ -83,7 +87,7 @@ class VidaCashPlusOrchestrator:
             parametros_calculados = self._calcular_parametros_calculados(
                 parametros_entrada, parametros_almacenados
             )
-            
+
             # 3.1 Calcular datos específicos de vida cash plus (mantener para pruebas)
             """calcular_vida_cash_plus = self._calcular_vida_cash_plus(
                 parametros_entrada, parametros_almacenados, parametros_calculados
@@ -233,7 +237,9 @@ class VidaCashPlusOrchestrator:
                     self._cobertura_fallecimiento.parametros = parametros
                     parametros_calculados_por_cobertura[cobertura] = (
                         self._cobertura_fallecimiento.calcular_parametros_calculados(
-                            parametros_entrada, tasas_interes_data, Producto.VIDA_CASH_PLUS
+                            parametros_entrada,
+                            tasas_interes_data,
+                            Producto.VIDA_CASH_PLUS,
                         )
                     )
 
@@ -241,7 +247,9 @@ class VidaCashPlusOrchestrator:
                     self._cobertura_itp.parametros = parametros
                     parametros_calculados_por_cobertura[cobertura] = (
                         self._cobertura_itp.calcular_parametros_calculados(
-                            parametros_entrada, tasas_interes_data, Producto.VIDA_CASH_PLUS
+                            parametros_entrada,
+                            tasas_interes_data,
+                            Producto.VIDA_CASH_PLUS,
                         )
                     )
                 print("\n")
